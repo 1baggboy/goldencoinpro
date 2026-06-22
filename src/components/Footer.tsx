@@ -6,7 +6,7 @@ import { Logo } from "./Logo";
 export const Footer = () => {
   return (
     <footer className="py-24 px-6 border-t border-[#C9A96E]/10 bg-slate-100 dark:bg-slate-900/50 mt-auto">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 text-left">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 text-left">
         <div className="col-span-1 md:col-span-2">
           <div className="mb-8">
             <Logo size="lg" />
@@ -47,7 +47,7 @@ export const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="max-w-[1400px] mx-auto mt-24 pt-10 border-t border-[#C9A96E]/10 text-center text-xs text-gray-500 font-medium tracking-wide">
+      <div className="max-w-7xl mx-auto mt-24 pt-10 border-t border-[#C9A96E]/10 text-center text-xs text-gray-500 font-medium tracking-wide">
         <p className="mb-6">© 2026 Goldencoin Limited. Company Registration No. GC-77821-LTD.</p>
         <p className="max-w-4xl mx-auto leading-loose opacity-60">
           Cryptocurrency is highly volatile and carries significant financial risk. Goldencoin Limited does not guarantee specific yields or profits. All financial decisions remain the sole responsibility of the user. Please consult with a qualified financial advisor before participating in digital asset markets.

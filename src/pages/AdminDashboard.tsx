@@ -76,7 +76,8 @@ export const AdminDashboard = () => {
     totalDeposits: 0,
     activeKyc: 0,
     activeInvestments: 0,
-    activeChats: 0
+    activeChats: 0,
+    activeTickets: 0
   });
 
   useEffect(() => {
@@ -130,6 +131,12 @@ export const AdminDashboard = () => {
       setStats(prev => ({ ...prev, activeChats: unreadUserIds.size }));
     }, (error) => handleFirestoreError(error, OperationType.LIST, "support_chats"));
 
+    // Fetch open support tickets count
+    const qTickets = query(collection(db, "support_tickets"), where("status", "==", "open"));
+    const unsubTickets = onSnapshot(qTickets, (snap) => {
+      setStats(prev => ({ ...prev, activeTickets: snap.docs.length }));
+    }, (error) => handleFirestoreError(error, OperationType.LIST, "support_tickets"));
+
     return () => {
       unsubUsers();
       unsubI();
@@ -137,6 +144,7 @@ export const AdminDashboard = () => {
       unsubW();
       unsubK();
       unsubChats();
+      unsubTickets();
     };
   }, [isAdmin]);
 
@@ -490,10 +498,18 @@ export const AdminDashboard = () => {
       </div>
 
       {/* Admin Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6">
         <AdminStatCard title="Total Users" value={stats.totalUsers} icon={Users} />
         <AdminStatCard title="Active Plans" value={stats.activeInvestments} icon={TrendingUp} color="green" />
         <AdminStatCard title="Pending KYC" value={pendingKyc.length} icon={ShieldCheck} color="blue" />
+        <AdminStatCard 
+          title="Open Tickets" 
+          value={stats.activeTickets} 
+          icon={Inbox} 
+          color="red" 
+          link="/admin/tickets" 
+          badge={stats.activeTickets > 0}
+        />
         <AdminStatCard 
           title="Unread Chats" 
           value={stats.activeChats} 

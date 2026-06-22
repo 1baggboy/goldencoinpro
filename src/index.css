@@ -9,21 +9,11 @@
 
 @layer base {
   html {
-    @apply antialiased text-slate-900;
-    /* Default mobile scaling (80%) */
-    zoom: 80%;
-    height: 800px;
-  }
-
-  @media (min-width: 1024px) {
-    html {
-      /* Desktop/Laptop scaling (75%) */
-      zoom: 75%;
-    }
+    @apply antialiased text-slate-900 overflow-x-hidden;
   }
 
   body {
-    @apply bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white antialiased transition-colors duration-300 selection:bg-[#C9A96E]/30;
+    @apply bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white antialiased transition-colors duration-300 selection:bg-[#C9A96E]/30 overflow-x-hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }

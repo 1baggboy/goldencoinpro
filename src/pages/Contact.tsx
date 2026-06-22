@@ -67,110 +67,213 @@ export const Contact = () => {
 
   return (
     <PublicLayout>
-      <main className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Left Column: Contact info */}
-          <div className="space-y-12">
-            <div className="space-y-6">
-              <motion.span 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-[#C9A96E] font-black uppercase tracking-[0.3em] text-xs"
+      <main className="max-w-7xl mx-auto px-6 py-20 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+          {/* Left Column: Institutional Presence */}
+          <div className="space-y-16">
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="inline-flex items-center gap-3 px-4 py-2 bg-[#C9A96E]/10 rounded-full border border-[#C9A96E]/20 text-[#C9A96E] text-[10px] font-black uppercase tracking-[0.4em]"
               >
-                Connect With Us
-              </motion.span>
+                <ShieldCheck size={14} /> Established Network
+              </motion.div>
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-5xl lg:text-8xl font-black tracking-tighter leading-[0.9] uppercase font-display italic"
+                className="text-6xl lg:text-8xl font-black tracking-tighter leading-[0.85] uppercase font-display italic text-slate-950 dark:text-white"
               >
-                Institutional <br />
-                <span className="text-[#C9A96E]">Support.</span>
+                Global <br />
+                <span className="text-[#C9A96E]">Presence.</span>
               </motion.h1>
-              <p className="text-gray-600 dark:text-gray-400 max-w-md text-xl leading-relaxed font-medium">
-                Our global specialized support team is available 24/7 to assist with your portfolio requirements.
+              <p className="text-gray-600 dark:text-gray-400 max-w-lg text-xl leading-relaxed font-medium">
+                Our global specialized support team is available 24/7 to assist with your portfolio requirements and institutional integration.
               </p>
             </div>
 
-            <div className="space-y-8">
-              <div className="flex items-start gap-6 group">
-                <div className="w-16 h-16 bg-[#C9A96E]/10 rounded-2xl border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E] group-hover:bg-[#C9A96E] group-hover:text-black transition-all duration-500 shrink-0">
-                  <Mail size={24} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+              <div className="space-y-4 group">
+                <div className="w-12 h-12 bg-slate-100 dark:bg-slate-900 rounded-xl border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E] group-hover:bg-[#C9A96E] group-hover:text-black transition-all duration-500">
+                  <Mail size={20} />
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-500 dark:text-gray-500 uppercase tracking-widest text-xs mb-1">Email Channels</h3>
-                  <a href="mailto:info.goldencoinltd@gmail.com" className="text-xl font-bold text-slate-950 dark:text-white hover:text-[#C9A96E] transition-colors block">info.goldencoinltd@gmail.com</a>
-                  <a href="mailto:compliance@goldencoin.live" className="text-sm font-medium text-gray-500 hover:text-[#C9A96E] transition-colors mt-1 block">compliance@goldencoin.live</a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-6 group">
-                <div className="w-16 h-16 bg-[#C9A96E]/10 rounded-2xl border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E] group-hover:bg-[#C9A96E] group-hover:text-black transition-all duration-500 shrink-0">
-                  <MapPin size={24} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-500 dark:text-gray-500 uppercase tracking-widest text-xs mb-1">Global HQ</h3>
-                  <p className="text-xl font-bold text-slate-950 dark:text-white leading-tight">22 Bishopsgate, <br />London EC2N 4BQ, UK</p>
+                <div className="space-y-1">
+                  <h3 className="font-black text-gray-500 dark:text-gray-500 uppercase tracking-[0.2em] text-[10px]">Communication</h3>
+                  <a href="mailto:info.goldencoinltd@gmail.com" className="text-lg font-black text-slate-950 dark:text-white hover:text-[#C9A96E] transition-colors block">info.goldencoinltd@gmail.com</a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-6 group">
-                <div className="w-16 h-16 bg-[#C9A96E]/10 rounded-2xl border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E] group-hover:bg-[#C9A96E] group-hover:text-black transition-all duration-500 shrink-0">
-                  <FileText size={24} />
+              <div className="space-y-4 group">
+                <div className="w-12 h-12 bg-slate-100 dark:bg-slate-900 rounded-xl border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E] group-hover:bg-[#C9A96E] group-hover:text-black transition-all duration-500">
+                  <MapPin size={20} />
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-500 dark:text-gray-500 uppercase tracking-widest text-xs mb-1">Entity Status</h3>
-                  <p className="text-xl font-bold text-slate-950 dark:text-white uppercase tracking-tighter">Reg No: GC-77821-LTD</p>
+                <div className="space-y-1">
+                  <h3 className="font-black text-gray-500 dark:text-gray-500 uppercase tracking-[0.2em] text-[10px]">Strategic HQ</h3>
+                  <p className="text-lg font-black text-slate-950 dark:text-white leading-tight">London EC2N 4BQ, UK</p>
+                </div>
+              </div>
+
+              <div className="space-y-4 group">
+                <div className="w-12 h-12 bg-slate-100 dark:bg-slate-900 rounded-xl border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E] group-hover:bg-[#C9A96E] group-hover:text-black transition-all duration-500">
+                  <Clock size={20} />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-black text-gray-500 dark:text-gray-500 uppercase tracking-[0.2em] text-[10px]">Availability</h3>
+                  <p className="text-lg font-black text-slate-950 dark:text-white leading-tight">24/7 Global Desk</p>
+                </div>
+              </div>
+
+              <div className="space-y-4 group">
+                <div className="w-12 h-12 bg-slate-100 dark:bg-slate-900 rounded-xl border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E] group-hover:bg-[#C9A96E] group-hover:text-black transition-all duration-500">
+                  <ShieldCheck size={20} />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-black text-gray-500 dark:text-gray-500 uppercase tracking-[0.2em] text-[10px]">Compliance</h3>
+                  <p className="text-lg font-black text-slate-950 dark:text-white leading-tight">GC-77821-LTD</p>
                 </div>
               </div>
             </div>
 
-            {/* Embedded Map */}
+            {/* Embedded Map Section */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              className="w-full aspect-video rounded-[3rem] overflow-hidden border border-[#C9A96E]/20 bg-slate-200 dark:bg-slate-900 shadow-[0_32px_64px_rgba(0,0,0,0.1)] group relative"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="w-full aspect-video lg:aspect-[16/10] rounded-[3rem] overflow-hidden border border-[#C9A96E]/10 bg-slate-100 dark:bg-slate-900 shadow-2xl relative group"
             >
+              <div className="absolute inset-0 bg-[#C9A96E]/5 mix-blend-overlay pointer-events-none z-10" />
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.905626245037!2d-0.08643802334057885!3d51.51493011015694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760352ce8dd61f%3A0x6b772b152d194c25!2s22%20Bishopsgate!5e0!3m2!1sen!2suk!4v1714620000000!5m2!1sen!2suk" 
                 width="100%" 
                 height="100%" 
-                style={{ border: 0, filter: 'grayscale(1) contrast(1.2) invert(0.1)' }} 
+                style={{ border: 0, filter: 'grayscale(1) contrast(1.1) brightness(0.95)' }} 
                 allowFullScreen={true} 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="group-hover:opacity-100 dark:invert-[0.9] dark:contrast-[1.5] transition-opacity duration-1000"
+                className="dark:invert-[0.9] dark:contrast-[1.2] transition-all duration-1000 grayscale group-hover:grayscale-0"
               />
             </motion.div>
           </div>
 
-          {/* Right Column: Information/Alternate */}
-          <div className="relative">
-            <div className="sticky top-32">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-white dark:bg-slate-900/40 backdrop-blur-2xl border border-[#C9A96E]/20 rounded-[3rem] p-10 lg:p-14 shadow-3xl relative overflow-hidden"
-              >
-                {/* Abstract decoration */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-[#C9A96E]/5 rounded-bl-full blur-[80px]" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#C9A96E]/5 rounded-tr-full blur-[100px]" />
-
-                <div className="text-center py-10 space-y-8 relative z-10">
-                  <h2 className="text-3xl font-black uppercase tracking-tight italic font-display">Need Immediate Assistance?</h2>
-                  <p className="text-gray-600 dark:text-gray-400 max-w-sm mx-auto text-lg leading-relaxed">
-                    Our support team is available 24/7 to assist with your portfolio requirements. Please use the support widget or email us directly for immediate help.
-                  </p>
-                  <a 
-                    href="mailto:info.goldencoinltd@gmail.com"
-                    className="inline-block bg-[#C9A96E] hover:bg-[#D4B985] text-black font-black uppercase tracking-[0.3em] py-6 px-10 rounded-[1.5rem] transition-all active:scale-95 shadow-2xl shadow-[#C9A96E]/20"
+          {/* Right Column: Transmission Interface */}
+          <div className="relative lg:sticky lg:top-32">
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="bg-white dark:bg-slate-900 border border-[#C9A96E]/20 rounded-[4rem] p-12 lg:p-20 text-center space-y-10 shadow-3xl"
+                >
+                  <div className="w-24 h-24 bg-green-500/10 rounded-[2rem] border border-green-500/20 flex items-center justify-center text-green-500 mx-auto shadow-xl">
+                    <CheckCircle2 size={48} className="animate-bounce" />
+                  </div>
+                  <div className="space-y-4">
+                    <h2 className="text-4xl font-black uppercase italic font-display text-slate-950 dark:text-white">Transmission <br/><span className="text-[#C9A96E]">Acknowledged.</span></h2>
+                    <p className="text-gray-600 dark:text-gray-400 text-lg font-medium leading-relaxed">
+                      Your inquiry has been logged within our global governance network. A representative will respond shortly.
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => setSubmitted(false)}
+                    className="px-12 py-6 bg-slate-100 dark:bg-slate-950 border border-[#C9A96E]/20 rounded-2xl text-xs font-black uppercase tracking-[0.4em] text-slate-950 dark:text-white hover:bg-[#C9A96E] hover:text-black transition-all shadow-xl"
                   >
-                    Email Support
-                  </a>
-                </div>
-              </motion.div>
-            </div>
+                    New Submission
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white dark:bg-slate-900 border border-[#C9A96E]/10 rounded-[3rem] p-10 lg:p-16 shadow-3xl relative overflow-hidden"
+                >
+                  {/* Decorative Elements */}
+                  <div className="absolute top-0 right-0 p-8 opacity-5">
+                    <MessageSquare size={300} />
+                  </div>
+
+                  <div className="relative z-10 space-y-12">
+                    <div className="space-y-4">
+                      <h2 className="text-3xl font-black text-slate-950 dark:text-white uppercase italic font-display">Inquiry Protocol</h2>
+                      <p className="text-gray-500 text-base font-medium">Please provide institutional detail for priority processing.</p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em]">Full Name / Entity</label>
+                        <input 
+                          type="text" 
+                          required
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                          className="w-full bg-slate-50 dark:bg-slate-950 border border-[#C9A96E]/20 rounded-2xl py-6 px-8 text-slate-950 dark:text-white outline-none focus:border-[#C9A96E] transition-all font-medium text-lg shadow-inner"
+                          placeholder="John Doe / Citadel Corp"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em]">Operational Email</label>
+                        <input 
+                          type="email" 
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full bg-slate-50 dark:bg-slate-950 border border-[#C9A96E]/20 rounded-2xl py-6 px-8 text-slate-950 dark:text-white outline-none focus:border-[#C9A96E] transition-all font-medium text-lg shadow-inner"
+                          placeholder="professional@network.com"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em]">Inquiry Vector</label>
+                        <select 
+                          required
+                          value={formData.subject}
+                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                          className="w-full bg-slate-50 dark:bg-slate-950 border border-[#C9A96E]/20 rounded-2xl py-6 px-8 text-slate-950 dark:text-white outline-none focus:border-[#C9A96E] transition-all font-medium text-lg appearance-none cursor-pointer shadow-inner"
+                        >
+                          <option value="">Select Category</option>
+                          <option value="Institutional Support">Institutional Support</option>
+                          <option value="Compliance / KYC">Compliance / KYC</option>
+                          <option value="Technical Integration">Technical Integration</option>
+                          <option value="Partnership Proposal">Partnership Proposal</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em]">Transmission Message</label>
+                        <textarea 
+                          required
+                          rows={5}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          className="w-full bg-slate-50 dark:bg-slate-950 border border-[#C9A96E]/20 rounded-2xl py-6 px-8 text-slate-950 dark:text-white outline-none focus:border-[#C9A96E] transition-all font-medium text-lg resize-none shadow-inner"
+                          placeholder="Describe your requirements in detail..."
+                        />
+                      </div>
+
+                      {error && (
+                        <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-500 text-sm font-bold">
+                          <AlertTriangle size={18} />
+                          {error}
+                        </div>
+                      )}
+
+                      <button 
+                        type="submit"
+                        disabled={loading}
+                        className="w-full py-8 bg-[#C9A96E] text-black font-black uppercase tracking-[0.5em] rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-[#C9A96E]/30 flex items-center justify-center gap-4 disabled:opacity-50 text-xl"
+                      >
+                        {loading ? "Transmitting..." : "Initialize Protocol"}
+                        <Send size={24} />
+                      </button>
+                    </form>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </main>

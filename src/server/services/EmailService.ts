@@ -352,31 +352,57 @@ export class EmailService {
     });
   }
 
+  static async sendAdminEmailNotification(subject: string, message: string) {
+    const adminEmail = process.env.ADMIN_EMAIL || "support@goldencoin.live";
+    const content = `
+      <p><strong>Administrative Notification</strong></p>
+      <div class="card" style="background-color: #f9f9f9; padding: 25px; border-radius: 12px; margin: 25px 0; border: 1px solid #eee;">
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      </div>
+      <p style="font-size: 12px; color: #888;">This is an automated system notification.</p>
+    `;
+
+    const html = TemplateEngine.render({
+      title: "Admin Alert",
+      content,
+      preheader: `Admin Alert: ${subject}`,
+      email: adminEmail
+    });
+
+    return this.sendEmail({
+      to: adminEmail,
+      subject: `[ADMIN ALERT] ${subject}`,
+      html,
+      from: this.getFromAddress("system", "Goldencoin System"),
+      type: 'SECURITY_ALERT'
+    });
+  }
+
   static async sendSupportTicketAlert(user: any, ticket: any) {
     const content = `
       <p>Hello ${user.firstName || 'User'},</p>
       <p>We have received your support request regarding <strong>${ticket.subject}</strong>.</p>
       <p>Our support team is reviewing your ticket and will provide a response as soon as possible.</p>
       <div class="card" style="background-color: #f9f9f9; padding: 25px; border-radius: 12px; margin: 25px 0; border: 1px solid #eee;">
-        <p style="margin: 0 0 10px;"><strong>Ticket ID:</strong> ${ticket.id}</p>
+        <p style="margin: 0 0 10px;"><strong>Ticket Number:</strong> ${ticket.ticketNumber || ticket.id}</p>
         <p style="margin: 0;"><strong>Status:</strong> ${ticket.status}</p>
       </div>
-      <p>You can track the progress of your ticket directly in your Golden Coin support panel.</p>
+      <p>You can track the progress of your ticket and respond to our team directly on our self-help portal.</p>
       <div style="text-align: center; margin-top: 35px;">
-        <a href="${this.getFrontendUrl()}/support" style="background-color: #0B0B0B; color: #fff; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Go to Support</a>
+        <a href="${this.getFrontendUrl()}/self-help" style="background-color: #0B0B0B; color: #fff; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Go to Help Center</a>
       </div>
     `;
 
     const html = TemplateEngine.render({
       title: "Support Ticket Received",
       content,
-      preheader: `Ticket #${ticket.id} received: ${ticket.subject}`,
+      preheader: `Ticket #${ticket.ticketNumber || ticket.id} received: ${ticket.subject}`,
       email: user.email
     });
 
     return this.sendEmail({
       to: user.email,
-      subject: `Support Ticket Received: ${ticket.subject}`,
+      subject: `[${ticket.ticketNumber || 'Ticket'}] Support Request Received: ${ticket.subject}`,
       html,
       from: this.getFromAddress("support", "Goldencoin Support"),
       type: 'SUPPORT_REPLY'
@@ -390,22 +416,22 @@ export class EmailService {
       <div class="card" style="background-color: #f9f9f9; padding: 25px; border-radius: 12px; margin: 25px 0; border: 1px solid #eee; font-style: italic;">
         "${message}"
       </div>
-      <p>Please log in to your dashboard to view the full conversation and reply.</p>
+      <p>Please visit our self-help portal to view the full conversation and provide any additional information if needed.</p>
       <div style="text-align: center; margin-top: 35px;">
-        <a href="${this.getFrontendUrl()}/support" class="hover-bg-gold" style="background-color: #C9A96E; color: #0B0B0B; padding: 14px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">View Conversation</a>
+        <a href="${this.getFrontendUrl()}/self-help" class="hover-bg-gold" style="background-color: #C9A96E; color: #0B0B0B; padding: 14px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">View Conversation</a>
       </div>
     `;
 
     const html = TemplateEngine.render({
       title: "New Support Reply",
       content,
-      preheader: "New response from Golden Coin support",
+      preheader: `New response for Ticket #${ticket.ticketNumber || ticket.id}`,
       email: user.email
     });
 
     return this.sendEmail({
       to: user.email,
-      subject: `New Reply to your support ticket: ${ticket.subject}`,
+      subject: `Re: [${ticket.ticketNumber || 'Ticket'}] New Reply to your support request`,
       html,
       from: this.getFromAddress("support", "Goldencoin Support"),
       type: 'SUPPORT_REPLY'

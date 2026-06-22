@@ -14,9 +14,11 @@ import {
   TrendingUp,
   ShieldCheck,
   BrainCircuit,
-  Sparkles
+  Sparkles,
+  ChevronDown
 } from "lucide-react";
 import { motion } from "motion/react";
+import { PublicNavbar } from "../components/PublicNavbar";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { useTheme } from "./ThemeContext";
 import { useAuth } from "../AuthContext";
@@ -135,34 +137,9 @@ export const Landing = () => {
   }, []);
 
   return (
-    <div className="min-h-screen font-sans transition-colors duration-300 bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white">
+    <div className="min-h-screen font-sans transition-colors duration-300 bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white overflow-x-hidden">
       {/* Navigation */}
-      <nav className="h-20 border-b px-6 md:px-12 flex items-center justify-between sticky top-0 backdrop-blur-md z-50 border-[#C9A96E]/20 bg-slate-50/80 dark:border-[#C9A96E]/10 dark:bg-slate-950/80">
-        <div className="flex items-center gap-3">
-          <Logo size="md" />
-        </div>
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 dark:text-gray-400">
-          <Link to="/features" className="hover:text-[#C9A96E] transition-colors">Features</Link>
-          <Link to="/security" className="hover:text-[#C9A96E] transition-colors">Security</Link>
-          <Link to="/faq" className="hover:text-[#C9A96E] transition-colors">FAQ</Link>
-          <Link to="/about" className="hover:text-[#C9A96E] transition-colors">About</Link>
-        </div>
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
-          {user ? (
-            <Link to="/dashboard" className="px-5 py-2.5 bg-[#C9A96E] text-slate-950 font-bold rounded-lg hover:bg-[#D4B985] transition-all text-sm">
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link to="/login" className="text-sm font-semibold transition-colors text-slate-950 hover:text-[#C9A96E] dark:text-white dark:hover:text-[#C9A96E]">Login</Link>
-              <Link to="/register" className="px-5 py-2.5 bg-[#C9A96E] text-slate-950 font-bold rounded-lg hover:bg-[#D4B985] transition-all text-sm">
-                Get Started
-              </Link>
-            </>
-          )}
-        </div>
-      </nav>
+      <PublicNavbar />
 
       {/* Hero Section */}
       <section className="relative pt-32 lg:pt-40 pb-20 lg:pb-32 px-6 overflow-hidden flex flex-col justify-start min-h-[85vh]">
@@ -252,7 +229,7 @@ export const Landing = () => {
 
       {/* Features Section */}
       <section id="features" className="py-32 px-6 bg-slate-100 dark:bg-slate-900 transition-all">
-        <div className="max-w-[1440px] mx-auto xl:max-w-[1600px]">
+        <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -285,7 +262,7 @@ export const Landing = () => {
 
       {/* How to Invest Section */}
       <section className="py-32 px-6 bg-white dark:bg-slate-950 transition-all">
-        <div className="max-w-[1440px] mx-auto xl:max-w-[1600px]">
+        <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -353,7 +330,7 @@ export const Landing = () => {
 
       {/* Referral Announcement Section */}
       <section id="about" className="py-32 px-6 relative overflow-hidden">
-        <div className="max-w-[1440px] mx-auto xl:max-w-[1600px]">
+        <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}

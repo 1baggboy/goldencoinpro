@@ -10,6 +10,7 @@ import {
   UserCog,
   TrendingUp,
   MessageSquare,
+  Inbox,
   X,
   Sun,
   Moon
@@ -75,13 +76,17 @@ export const Sidebar = ({ isOpen, onClose }: { isOpen?: boolean, onClose?: () =>
     { name: "Transactions", icon: History, path: "/transactions" },
     { name: "KYC Verification", icon: ShieldCheck, path: "/kyc" },
     { name: "Profile", icon: Settings, path: "/profile" },
-    { name: "Support", icon: MessageSquare, path: `mailto:${APP_CONFIG.supportEmail}`, isExternal: true },
   ];
 
   if (isAdmin) {
     menuItems.push({ name: "Admin Panel", icon: UserCog, path: "/admin" });
     menuItems.push({ 
-      name: "Support Chats", 
+      name: "Support Tickets", 
+      icon: Inbox, 
+      path: "/admin/tickets"
+    });
+    menuItems.push({ 
+      name: "Live Support", 
       icon: MessageSquare, 
       path: "/admin/support",
       badge: unreadSupportCount > 0 ? unreadSupportCount : undefined

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Bell, Search, User, Menu } from "lucide-react";
+import { Bell, User, Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { useAuth } from "../AuthContext";
@@ -17,18 +17,6 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   const { unreadCount } = useNotifications();
   const { prices } = usePrices();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
-        event.preventDefault();
-        setIsSearchOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
 
   const btcPrice = prices?.btc?.usd || 0;
   const btcChange = prices?.btc?.change || 0;
@@ -41,6 +29,7 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
     { name: "KYC", path: "/kyc" },
     { name: "Invest", path: "/invest" },
     { name: "Profile", path: "/profile" },
+    { name: "Self Help", path: "/self-help" },
     { name: "FAQ", path: "/faq" },
     { name: "Contact", path: "/contact" },
     { name: "Features", path: "/features" },
@@ -49,12 +38,6 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
 
   return (
     <header className="h-20 lg:h-24 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-[#C9A96E]/10 px-6 lg:px-12 flex items-center justify-between sticky top-0 z-50">
-      <SearchPanel 
-        isOpen={isSearchOpen} 
-        onClose={() => setIsSearchOpen(false)} 
-        items={globalSearchItems}
-        title="the website"
-      />
       <div className="flex items-center gap-3 sm:gap-4 flex-1">
         <button 
           type="button"
@@ -63,7 +46,7 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
             e.stopPropagation();
             onMenuClick?.();
           }} 
-          className="p-2 lg:p-3 text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-xl transition-colors relative z-[60] md:hidden"
+          className="p-2 lg:p-3 text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-xl transition-colors relative z-[60] lg:hidden"
         >
           <Menu size={24} />
         </button>
@@ -89,21 +72,43 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
         </div>
       </div>
 
-      <div className="hidden lg:flex items-center relative gap-4">
-        <button 
-          type="button"
-          onClick={() => setIsSearchOpen(true)}
-          className="w-12 h-12 flex items-center justify-center text-gray-500 hover:text-[#C9A96E] bg-gray-100 dark:bg-slate-900 rounded-2xl border border-[#C9A96E]/10 transition-colors shrink-0 shadow-sm hover:border-[#C9A96E]/40"
-        >
-          <Search size={20} />
-        </button>
-      </div>
+
 
       <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
         <ThemeToggle />
-        <div className="hidden xl:flex items-center gap-10">
-          <Link to="/faq" className="text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors">FAQ</Link>
-          <a href={`mailto:${APP_CONFIG.supportEmail}`} className="text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors">Support</a>
+        <div className="hidden lg:flex items-center gap-3 xl:gap-8">
+          <Link to="/" className="text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">Home</Link>
+          <Link to="/about" className="text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">About Us</Link>
+          <Link to="/features" className="text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">Our Features</Link>
+
+          {/* Help Dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-1 text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
+              Help <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
+            </button>
+            <div className="absolute top-full left-0 pt-4 w-56 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-[100]">
+              <div className="bg-white dark:bg-slate-900 border border-[#C9A96E]/20 rounded-2xl shadow-2xl p-2 flex flex-col gap-1">
+                <Link to="/contact" className="px-4 py-2 hover:bg-[#C9A96E]/10 rounded-xl transition-colors text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">Contact Us</Link>
+                <Link to="/self-help" className="px-4 py-2 hover:bg-[#C9A96E]/10 rounded-xl transition-colors text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">Self Help</Link>
+                <Link to="/faq" className="px-4 py-2 hover:bg-[#C9A96E]/10 rounded-xl transition-colors text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">FAQs</Link>
+                <Link to="/scam-awareness" className="px-4 py-2 hover:bg-[#C9A96E]/10 rounded-xl transition-colors text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">Scam Awareness</Link>
+                <Link to="/security" className="px-4 py-2 hover:bg-[#C9A96E]/10 rounded-xl transition-colors text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">Security</Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Our Company Dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-1 text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
+              Our Company <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
+            </button>
+            <div className="absolute top-full left-0 pt-4 w-48 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-[100]">
+              <div className="bg-white dark:bg-slate-900 border border-[#C9A96E]/20 rounded-2xl shadow-2xl p-2 flex flex-col gap-1">
+                <Link to="/blog" className="px-4 py-2 hover:bg-[#C9A96E]/10 rounded-xl transition-colors text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">Blog</Link>
+                <Link to="/join-our-team" className="px-4 py-2 hover:bg-[#C9A96E]/10 rounded-xl transition-colors text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">Join Our Team</Link>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="relative">

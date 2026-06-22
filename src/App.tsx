@@ -33,6 +33,11 @@ import { About } from "./components/About";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { Features } from "./pages/Features";
 import { Security } from "./pages/Security";
+import { ScamAwareness } from "./pages/ScamAwareness";
+import { Blog } from "./pages/Blog";
+import { JoinOurTeam } from "./pages/JoinOurTeam";
+import { SelfHelp } from "./pages/SelfHelp";
+import { AdminTickets } from "./pages/AdminTickets";
 import { SupportWidget } from "./components/SupportWidget";
 import CookieBanner from "./components/CookieBanner";
 import { Toaster } from "sonner";
@@ -200,6 +205,9 @@ function AppContent({ siteLoading, setSiteLoading }: { siteLoading: boolean, set
           <Route path="/about" element={<About />} />
           <Route path="/features" element={<Features />} />
           <Route path="/security" element={<Security />} />
+          <Route path="/scam-awareness" element={<ScamAwareness />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/join-our-team" element={<JoinOurTeam />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/risk-disclaimer" element={<RiskDisclaimer />} />
@@ -281,6 +289,7 @@ function AppContent({ siteLoading, setSiteLoading }: { siteLoading: boolean, set
             </ProtectedRoute>
           } />
           
+          <Route path="/self-help" element={<SelfHelp />} />
           <Route path="/admin" element={
             <ProtectedRoute adminOnly>
               <Layout>
@@ -293,6 +302,14 @@ function AppContent({ siteLoading, setSiteLoading }: { siteLoading: boolean, set
             <ProtectedRoute adminOnly>
               <Layout>
                 <AdminSupport />
+              </Layout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/admin/tickets" element={
+            <ProtectedRoute adminOnly>
+              <Layout>
+                <AdminTickets />
               </Layout>
             </ProtectedRoute>
           } />
