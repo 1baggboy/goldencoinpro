@@ -6,12 +6,15 @@ import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "../pages/ThemeContext";
 import { cn } from "../lib/utils";
+import { useAuth } from "../AuthContext";
+import { AlertTriangle } from "lucide-react";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   const { theme } = useTheme();
   const { pathname } = useLocation();
   const mainRef = React.useRef<HTMLElement>(null);
+  const { dbQuotaExhausted } = useAuth();
 
   React.useEffect(() => {
     if (mainRef.current) {
@@ -31,6 +34,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
              </div>
           </div>
         </div>
+
+        {dbQuotaExhausted && (
+          <div className="bg-amber-500/10 border-b border-amber-500/20 text-amber-600 dark:text-amber-400 py-2 px-4 text-xs font-semibold flex items-center justify-center gap-2 shrink-0 text-center">
+            <AlertTriangle size={15} className="shrink-0 animate-pulse text-amber-500" />
+            <span>Database Quota Met: Operating inside fast, read-only local storage mode. Your persistent profiles & sessions are secure.</span>
+          </div>
+        )}
 
         <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
         <main 

@@ -48,29 +48,29 @@ export const PublicNavbar = () => {
   ];
 
   return (
-    <nav className="h-20 border-b px-6 md:px-12 flex items-center justify-center sticky top-0 backdrop-blur-md z-50 border-[#C9A96E]/20 bg-slate-50/80 dark:border-[#C9A96E]/10 dark:bg-slate-950/80">
+    <nav className="h-16 sm:h-20 border-b px-3 sm:px-6 md:px-12 flex items-center justify-center sticky top-0 backdrop-blur-md z-50 border-[#C9A96E]/20 bg-slate-50/80 dark:border-[#C9A96E]/10 dark:bg-slate-950/80">
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1.5 sm:gap-4">
           <button 
             type="button"
             onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden p-2 text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-xl transition-colors"
+            className="lg:hidden p-1.5 sm:p-2 text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-xl transition-colors"
           >
-            <Menu size={24} />
+            <Menu size={22} />
           </button>
-          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <Logo size="md" />
+          <Link to="/" className="flex items-center gap-1.5 sm:gap-3 hover:opacity-80 transition-opacity">
+            <Logo size="md" className="h-8 sm:h-10" />
           </Link>
         </div>
         
-        <div className="hidden lg:flex items-center gap-2 xl:gap-8 text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400">
+        <div className="hidden lg:flex items-center gap-2.5 xl:gap-6 text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400">
           {navLinks.map(link => (
             <Link key={link.path} to={link.path} className="hover:text-[#C9A96E] transition-colors whitespace-nowrap">{link.name}</Link>
           ))}
           
           {/* Help Dropdown */}
           <div className="relative group">
-            <button className="flex items-center gap-1 text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
+            <button className="flex items-center gap-1 text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
               Help <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
             </button>
             <div className="absolute top-full left-0 pt-4 w-56 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-[100]">
@@ -84,7 +84,7 @@ export const PublicNavbar = () => {
 
           {/* Our Company Dropdown */}
           <div className="relative group">
-            <button className="flex items-center gap-1 text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
+            <button className="flex items-center gap-1 text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
               Our Company <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
             </button>
             <div className="absolute top-full left-0 pt-4 w-48 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-[100]">
@@ -97,18 +97,18 @@ export const PublicNavbar = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1.5 sm:gap-4 shrink-0">
           <div className="hidden sm:block">
             <ThemeToggle />
           </div>
           {user ? (
-            <Link to="/dashboard" className="px-5 py-2.5 bg-[#C9A96E] text-slate-950 font-bold rounded-lg hover:bg-[#D4B985] transition-all text-sm whitespace-nowrap">
+            <Link to="/dashboard" className="px-3 py-2 sm:px-5 sm:py-2.5 bg-[#C9A96E] text-slate-950 font-bold rounded-lg hover:bg-[#D4B985] transition-all text-xs sm:text-sm whitespace-nowrap">
               Dashboard
             </Link>
           ) : (
             <>
-              <Link to="/login" className="hidden sm:block text-sm font-bold uppercase tracking-widest transition-colors text-slate-950 hover:text-[#C9A96E] dark:text-white dark:hover:text-[#C9A96E]">Login</Link>
-              <Link to="/register" className="px-5 py-2.5 bg-[#C9A96E] text-slate-950 font-bold rounded-lg hover:bg-[#D4B985] transition-all text-sm whitespace-nowrap">
+              <Link to="/login" className="hidden sm:block text-xs sm:text-sm font-bold uppercase tracking-widest transition-colors text-slate-950 hover:text-[#C9A96E] dark:text-white dark:hover:text-[#C9A96E]">Login</Link>
+              <Link to="/register" className="px-3.5 py-2 sm:px-5 sm:py-2.5 bg-[#C9A96E] text-slate-950 font-bold rounded-lg hover:bg-[#D4B985] transition-all text-xs sm:text-sm whitespace-nowrap">
                 Get Started
               </Link>
             </>

@@ -4,6 +4,7 @@ import fetch from 'node-fetch'; // need to make sure this is available or use gl
 import { EmailService } from './EmailService';
 import { auth, db } from '../lib/firebase';
 import admin from 'firebase-admin';
+import { BitcoinService } from './BitcoinService';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_change_me';
 const TOKEN_EXPIRY = '1h';
@@ -34,6 +35,8 @@ export class AuthService {
       displayName: `${firstName || ''} ${lastName || ''}`.trim(),
     });
 
+    const btcWallet = BitcoinService.generateWallet();
+
     // Create user data in Firestore
     await db.collection('users').doc(userRecord.uid).set({
       email,
@@ -44,8 +47,16 @@ export class AuthService {
       isSuspended: false,
       balance: 0,
       tradingBalance: 0,
+      btcAddress: btcWallet.address,
       createdAt: new Date(),
       updatedAt: new Date(),
+    });
+
+    // Save private key securely in a subcollection
+    await db.collection('users').doc(userRecord.uid).collection('privateData').doc('wallet').set({
+      btcPrivateKey: btcWallet.privateKey,
+      address: btcWallet.address,
+      createdAt: new Date()
     });
 
     // Update global user count

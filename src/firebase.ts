@@ -1,11 +1,23 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDocFromServer, initializeFirestore } from "firebase/firestore";
+import { getMessaging, isSupported } from "firebase/messaging";
 import firebaseConfig from "../firebase-applet-config.json";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+export const getMessagingInstance = async () => {
+  try {
+    if (typeof window !== "undefined" && await isSupported()) {
+      return getMessaging(app);
+    }
+  } catch (err) {
+    console.warn("FCM messaging is not supported in this browser environment:", err);
+  }
+  return null;
+};
 
 // Use initializeFirestore with experimentalForceLongPolling to prevent iframe WebSocket timeouts
 export const db = initializeFirestore(app, {

@@ -29,8 +29,11 @@ export interface FirestoreErrorInfo {
 }
 
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const errCode = (error as any)?.code || '';
+  const errMessage = error instanceof Error ? error.message : String(error);
+
   const errInfo: FirestoreErrorInfo = {
-    error: error instanceof Error ? error.message : String(error),
+    error: errMessage,
     authInfo: {
       userId: auth.currentUser?.uid,
       email: auth.currentUser?.email,
@@ -48,5 +51,19 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
     path
   }
   console.error('Firestore Error: ', JSON.stringify(errInfo));
+
+  const isQuota = errCode === 'resource-exhausted' || errMessage.toLowerCase().includes('quota');
+  if (isQuota) {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('db-quota-exhausted'));
+    }
+    return; // Don't throw for quota errors to keep the application running
+  }
+
+  // Prevent throwing for read/list operations to keep components from crashing the layout
+  if (operationType === OperationType.LIST || operationType === OperationType.GET) {
+    return;
+  }
+
   throw new Error(JSON.stringify(errInfo));
 }

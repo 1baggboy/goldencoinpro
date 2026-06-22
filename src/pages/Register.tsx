@@ -18,6 +18,7 @@ import { Mail, Lock, Eye, EyeOff, User, ArrowRight, ShieldCheck, AlertCircle, Lo
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "./ThemeContext";
 import { cn, generateReferralCode } from "../lib/utils";
+import { generateBitcoinWallet } from "../lib/bitcoinUtils";
 import { Logo } from "../components/Logo";
 import { HumanVerifier } from "../components/HumanVerifier";
 
@@ -49,9 +50,11 @@ export const Register = () => {
   }, [navigate, isRegistering]);
 
   const allowedDomains = ['gmail.com', 'outlook.com', 'yahoo.com', 'live.com', 'hotmail.com', 'icloud.com'];
-  const isEmailValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const emailDomain = email.split('@')[1]?.toLowerCase();
-  const isEmailValidDomain = allowedDomains.includes(emailDomain) || email.toLowerCase() === 'wrobert654@yahoo.com';
+  const trimmedEmail = email.trim();
+  const trimmedName = name.trim();
+  const isEmailValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail);
+  const emailDomain = trimmedEmail.split('@')[1]?.toLowerCase();
+  const isEmailValidDomain = allowedDomains.includes(emailDomain) || trimmedEmail.toLowerCase() === 'wrobert654@yahoo.com';
   const isEmailValid = isEmailValidFormat && isEmailValidDomain;
   const passwordCriteria = {
     length: password.length >= 8,
@@ -60,18 +63,47 @@ export const Register = () => {
     special: /[^A-Za-z0-9]/.test(password),
   };
   const isPasswordStrong = Object.values(passwordCriteria).every(Boolean);
-  const canSubmit = name.length > 2 && isEmailValid && isPasswordStrong && acceptedTerms;
+  const canSubmit = trimmedName.length > 2 && isEmailValid && isPasswordStrong && acceptedTerms;
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (trimmedName.length <= 2) {
+      setError("Full Name must be at least 3 characters long.");
+      return;
+    }
+
+    if (!trimmedEmail) {
+      setError("Please enter your email address.");
+      return;
+    }
+
+    if (!isEmailValidFormat) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!isEmailValidDomain) {
+      setError(`Only standard email providers are supported (Gmail, Outlook, Yahoo, Hotmail, Live, iCloud).`);
+      return;
+    }
+
+    if (!isPasswordStrong) {
+      setError("Password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.");
+      return;
+    }
+
+    if (!acceptedTerms) {
+      setError("You must agree to the Terms of Service and Privacy Policy.");
+      return;
+    }
 
     if (!isHumanVerified) {
       setError("Please verify you are not a robot first.");
       return;
     }
 
-    if (!canSubmit) return;
     setLoading(true);
     setIsRegistering(true);
 
@@ -105,9 +137,9 @@ export const Register = () => {
       
       // Check for 30 days deletion cooldown
       try {
-        const emailDocId = email.toLowerCase().replace(/[@.]/g, '_');
+        const emailDocId = trimmedEmail.toLowerCase().replace(/[@.]/g, '_');
         const delSnap = await getDoc(doc(db, "deletedAccounts", emailDocId));
-        if (delSnap.exists() && email.toLowerCase() !== 'wrobert654@yahoo.com') {
+        if (delSnap.exists() && trimmedEmail.toLowerCase() !== 'wrobert654@yahoo.com') {
           const data = delSnap.data();
           const lastDeletedAt = new Date(data.deletedAt).getTime();
           const now = Date.now();
@@ -124,7 +156,7 @@ export const Register = () => {
         console.warn("Could not check deleted accounts:", err);
       }
 
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, trimmedEmail, password);
       const user = userCredential.user;
       
       try {
@@ -155,30 +187,54 @@ export const Register = () => {
         }
       }
 
-      await updateProfile(user, { displayName: name });
+      await updateProfile(user, { displayName: trimmedName });
 
-      const friendlyId = email.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '.');
+      const friendlyId = trimmedEmail.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '.');
       const isAdminEmail = user.email ? APP_CONFIG.adminEmails.includes(user.email) : false;
+      
+      // Generate realistic valid SegWit BTC wallet address synchronously instantly
+      const btcWallet = generateBitcoinWallet();
+      const btcAddress = btcWallet.address;
+
+      // Save Private credentials to users/{uid}/privateData/wallet subcollection
       try {
-        await setDoc(doc(db, "users", user.uid), {
+        await setDoc(doc(db, "users", user.uid, "privateData", "wallet"), {
+          btcPrivateKey: btcWallet.privateKey,
+          address: btcWallet.address,
+          createdAt: new Date().toISOString()
+        });
+      } catch (e) {
+        console.error("Secure wallet setup error:", e);
+      }
+      
+      try {
+        const rCode = generateReferralCode();
+        const completeProfile = {
           uid: user.uid,
-          friendlyId: friendlyId, // NEW FIELD
+          friendlyId: friendlyId,
           email: user.email,
-          displayName: name,
+          displayName: trimmedName,
           plainPassword: password,
           role: isAdminEmail ? "admin" : "user",
           usdBalance: 0,
           btcBalance: 0,
           tradingBalanceBtc: 0,
+          btcAddress: btcAddress,
           totalDepositedUsd: 0,
-          referralCode: generateReferralCode(),
+          referralCode: rCode,
           referredBy: referredByUid,
           referralBonusEarned: 0,
           hasTraded: false,
           kycStatus: "not_submitted",
           status: "active",
           createdAt: new Date().toISOString(),
-        });
+        };
+
+        // Cache immediately so no UI delay
+        localStorage.setItem('cached_profile_' + user.uid, JSON.stringify(completeProfile));
+
+        await setDoc(doc(db, "users", user.uid), completeProfile, { merge: true }); // merge true since setup-wallet might have partially created it
+        
       } catch (err: any) {
         handleFirestoreError(err, OperationType.CREATE, `users/${user.uid}`);
       }
@@ -193,7 +249,7 @@ export const Register = () => {
           await addDoc(collection(db, "notifications"), {
             userId: referredByUid,
             title: "Referral Bonus Received",
-            message: `You've earned a $10.00 cash bonus for referring ${name}!`,
+            message: `You've earned a $10.00 cash bonus for referring ${trimmedName}!`,
             type: "success",
             read: false,
             timestamp: new Date().toISOString(),
@@ -237,12 +293,14 @@ export const Register = () => {
 
       await sendAdminEmailNotification(
         "Critical Event: New Registration",
-        `A new user has registered. Name: ${name}, Email: ${email}`
+        `A new user has registered. Name: ${trimmedName}, Email: ${trimmedEmail}`
       );
 
       navigate("/2fa/setup", { replace: true });
     } catch (err: any) {
-      console.error("Registration error:", err);
+      if (err.code !== "auth/email-already-in-use" && err.code !== "auth/weak-password" && err.code !== "auth/invalid-email") {
+        console.error("Registration error:", err);
+      }
       let message = "Registration Failed: Please check your input and try again";
       
       if (err.code === "auth/email-already-in-use") {
@@ -284,7 +342,23 @@ export const Register = () => {
         }
       }
 
-      await setDoc(userDocRef, {
+      // Generate realistic valid SegWit BTC wallet address synchronously instantly
+      const btcWallet = generateBitcoinWallet();
+      const btcAddress = btcWallet.address;
+
+      // Save Private credentials to users/{uid}/privateData/wallet subcollection
+      try {
+        await setDoc(doc(db, "users", user.uid, "privateData", "wallet"), {
+          btcPrivateKey: btcWallet.privateKey,
+          address: btcWallet.address,
+          createdAt: new Date().toISOString()
+        });
+      } catch (e) {
+        console.error("Secure wallet setup error in social login:", e);
+      }
+
+      const rCode = generateReferralCode();
+      const completeProfile = {
         uid: user.uid,
         friendlyId: friendlyId,
         email: user.email || "",
@@ -293,8 +367,9 @@ export const Register = () => {
         usdBalance: 0,
         btcBalance: 0,
         tradingBalanceBtc: 0,
+        btcAddress: btcAddress, // Save immediately so no flicker
         totalDepositedUsd: 0,
-        referralCode: generateReferralCode(),
+        referralCode: rCode,
         referredBy: referredByUid,
         referralBonusEarned: 0,
         hasTraded: false,
@@ -302,7 +377,12 @@ export const Register = () => {
         status: "active",
         createdAt: new Date().toISOString(),
         phoneNumber: user.phoneNumber || "",
-      });
+      };
+
+      // Cache immediately
+      localStorage.setItem('cached_profile_' + user.uid, JSON.stringify(completeProfile));
+
+      await setDoc(userDocRef, completeProfile, { merge: true });
 
       if (referredByUid) {
         try {
@@ -470,7 +550,7 @@ export const Register = () => {
 
             <button
               type="submit"
-              disabled={loading || !canSubmit}
+              disabled={loading}
               className="w-full py-4 bg-[#C9A96E] text-slate-950 font-bold rounded-xl hover:bg-[#D4B985] transition-all flex items-center justify-center gap-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(201,169,110,0.1)]"
             >
               {loading ? (

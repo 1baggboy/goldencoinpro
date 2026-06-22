@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import admin from 'firebase-admin';
 import { EmailService } from './EmailService';
-import { db } from '../lib/firebase';
+import { db, messaging } from '../lib/firebase';
 
 export class TransactionService {
   static async createDeposit(userId: string, amount: number, method: string) {
@@ -115,6 +115,52 @@ export class TransactionService {
     // Withdrawal balance already deducted at request time
 
     await EmailService.sendTransactionAlert(user, updatedTx);
+
+    // Send real-time browser FCM push notifications
+    const fcmTokens = user.fcmTokens || [];
+    if (messaging && Array.isArray(fcmTokens) && fcmTokens.length > 0) {
+      try {
+        const title = tx.type === 'DEPOSIT' ? 'Deposit Approved 🎉' : 'Withdrawal Approved 🎉';
+        const body = tx.type === 'DEPOSIT'
+          ? `Your deposit of $${tx.amount.toLocaleString()} has been credited to your account.`
+          : `Your withdrawal of $${tx.amount.toLocaleString()} was successfully processed.`;
+
+        console.log(`[FCM] Sending push notification to user ${user.id} on ${fcmTokens.length} devices.`);
+        const payload = {
+          notification: {
+            title,
+            body
+          },
+          tokens: fcmTokens
+        };
+
+        const response = await messaging.sendEachForMulticast(payload);
+        console.log(`[FCM] Sent: ${response.successCount} succeeded, ${response.failureCount} failed.`);
+
+        if (response.failureCount > 0) {
+          const invalidTokens: string[] = [];
+          response.responses.forEach((resp, idx) => {
+            if (!resp.success) {
+              const errorCode = resp.error?.code;
+              if (
+                errorCode === 'messaging/invalid-registration-token' ||
+                errorCode === 'messaging/registration-token-not-registered'
+              ) {
+                invalidTokens.push(fcmTokens[idx]);
+              }
+            }
+          });
+          if (invalidTokens.length > 0) {
+            await userRef.update({
+              fcmTokens: admin.firestore.FieldValue.arrayRemove(...invalidTokens)
+            });
+            console.log(`[FCM] Cleaned up ${invalidTokens.length} expired or invalid tokens`);
+          }
+        }
+      } catch (error) {
+        console.error('[FCM] Error sending multicast push notification:', error);
+      }
+    }
 
     return updatedTx;
   }

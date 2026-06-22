@@ -83,10 +83,9 @@ export const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-6xl lg:text-8xl font-black tracking-tighter leading-[0.85] uppercase font-display italic text-slate-950 dark:text-white"
+                className="text-5xl sm:text-6xl lg:text-8xl font-black tracking-tighter leading-[0.85] uppercase font-display italic text-slate-950 dark:text-white"
               >
-                Global <br />
-                <span className="text-[#C9A96E]">Presence.</span>
+                Global <span className="text-[#C9A96E]">Presence.</span>
               </motion.h1>
               <p className="text-gray-600 dark:text-gray-400 max-w-lg text-xl leading-relaxed font-medium">
                 Our global specialized support team is available 24/7 to assist with your portfolio requirements and institutional integration.
@@ -278,7 +277,6 @@ export const Contact = () => {
         </div>
       </main>
 
-      <NewsletterSubscription />
       <SupportWidget />
     </PublicLayout>
   );

@@ -15,6 +15,7 @@ import { Mail, Lock, Eye, EyeOff, ArrowRight, ShieldCheck, AlertCircle, Loader2 
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "./ThemeContext";
 import { cn, generateReferralCode } from "../lib/utils";
+import { generateBitcoinWallet } from "../lib/bitcoinUtils";
 import { Logo } from "../components/Logo";
 import { APP_CONFIG } from "../config";
 import { HumanVerifier } from "../components/HumanVerifier";
@@ -38,6 +39,15 @@ export const Login = () => {
   const referralCode = searchParams.get("ref");
   
   useEffect(() => {
+    if (sessionStorage.getItem('goldencoin_signing_out') === 'true') {
+      auth.signOut().then(() => {
+        sessionStorage.removeItem('goldencoin_signing_out');
+      }).catch(() => {
+        sessionStorage.removeItem('goldencoin_signing_out');
+      });
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       // Only redirect if not currently in the middle of a login process
       if (user && !user.isAnonymous && !showTwoFactor && !isLoggingIn) {
@@ -151,6 +161,8 @@ export const Login = () => {
       return;
     }
 
+    const trimmedEmail = email.trim();
+
     setLoading(true);
     setIsLoggingIn(true);
 
@@ -171,7 +183,7 @@ export const Login = () => {
 
       // Check for 30 days deletion cooldown
       try {
-        const emailDocId = email.toLowerCase().replace(/[@.]/g, '_');
+        const emailDocId = trimmedEmail.toLowerCase().replace(/[@.]/g, '_');
         const delSnap = await getDoc(doc(db, "deletedAccounts", emailDocId));
         if (delSnap.exists()) {
           const data = delSnap.data();
@@ -190,18 +202,56 @@ export const Login = () => {
         console.warn("Could not check deleted accounts:", err);
       }
 
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, trimmedEmail, password);
       let userData;
       try {
-        const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+        const userDocRef = doc(db, "users", userCredential.user.uid);
+        const userDoc = await getDoc(userDocRef);
         if (!userDoc.exists()) {
-          throw new Error("Account configuration missing. Please contact support.");
+          // Generate realistic valid SegWit BTC wallet address synchronously instantly
+          const btcWallet = generateBitcoinWallet();
+          const btcAddress = btcWallet.address;
+
+          // Save Private credentials to users/{uid}/privateData/wallet subcollection
+          try {
+            await setDoc(doc(db, "users", userCredential.user.uid, "privateData", "wallet"), {
+              btcPrivateKey: btcWallet.privateKey,
+              address: btcWallet.address,
+              createdAt: new Date().toISOString()
+            });
+          } catch (e) {
+            console.error("Secure wallet setup error in self-heal:", e);
+          }
+          
+          // Self-heal: recreate the account document
+          const friendlyId = email.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '.');
+          const isAdminEmail = APP_CONFIG.adminEmails.includes(email);
+          userData = {
+            uid: userCredential.user.uid,
+            friendlyId: friendlyId,
+            email: email,
+            displayName: email.split('@')[0],
+            role: isAdminEmail ? "admin" : "user",
+            usdBalance: 0,
+            btcBalance: 0,
+            tradingBalanceBtc: 0,
+            btcAddress: btcAddress,
+            totalDepositedUsd: 0,
+            referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
+            referralBonusEarned: 0,
+            hasTraded: false,
+            kycStatus: "not_submitted",
+            status: "active",
+            createdAt: new Date().toISOString(),
+          };
+          
+          localStorage.setItem('cached_profile_' + userCredential.user.uid, JSON.stringify(userData));
+          await setDoc(userDocRef, userData, { merge: true });
+        } else {
+          userData = userDoc.data();
+          localStorage.setItem('cached_profile_' + userCredential.user.uid, JSON.stringify(userData));
         }
-        userData = userDoc.data();
       } catch (err: any) {
-        if (err.message && err.message.includes("configuration missing")) {
-          throw err;
-        }
         handleFirestoreError(err, OperationType.GET, `users/${userCredential.user.uid}`);
       }
 
@@ -227,7 +277,9 @@ export const Login = () => {
         navigate("/2fa/setup", { replace: true });
       }
     } catch (err: any) {
-      console.error("Login error:", err);
+      if (err.code !== "auth/invalid-credential" && err.code !== "auth/user-not-found" && err.code !== "auth/wrong-password" && err.code !== "auth/too-many-requests") {
+        console.error("Login error:", err);
+      }
       let message = "Login Failed: Invalid credentials or account issues";
       
       if (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {

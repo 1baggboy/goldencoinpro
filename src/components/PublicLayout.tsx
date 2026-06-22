@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, AlertTriangle } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { Logo } from "./Logo";
 import { Footer } from "./Footer";
@@ -10,8 +10,17 @@ import { motion } from "motion/react";
 import { PublicNavbar } from "./PublicNavbar";
 
 export const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { dbQuotaExhausted } = useAuth();
+
   return (
     <div className="min-h-screen font-sans transition-colors duration-300 bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white overflow-x-hidden flex flex-col">
+      {dbQuotaExhausted && (
+        <div className="bg-amber-500/10 border-b border-amber-500/20 text-amber-600 dark:text-amber-400 py-2 px-4 text-xs font-semibold flex items-center justify-center gap-2 shrink-0 text-center">
+          <AlertTriangle size={15} className="shrink-0 animate-pulse text-amber-500" />
+          <span>Database Quota Met: Operating inside fast, read-only local storage mode. Your persistent profiles & sessions are secure.</span>
+        </div>
+      )}
+
       {/* Navigation */}
       <PublicNavbar />
 

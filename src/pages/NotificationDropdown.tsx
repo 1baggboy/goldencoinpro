@@ -11,7 +11,7 @@ interface NotificationDropdownProps {
 }
 
 export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ isOpen, onClose }) => {
-  const { notifications, unreadCount, markAsRead, markAllAsRead, deleteNotification } = useNotifications();
+  const { notifications, unreadCount, markAsRead, markAllAsRead, deleteNotification, fcmGranted, requestPushPermission } = useNotifications();
 
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
   const getIcon = (type: Notification["type"]) => {
@@ -60,6 +60,28 @@ export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ isOp
                   </button>
                 )}
               </div>
+
+              {/* FCM / Desktop Push Notifications Banner */}
+              {fcmGranted !== "unsupported" && (
+                <div className="px-4 py-2 border-b border-[#C9A96E]/10 bg-slate-950/20 text-xs flex items-center justify-between">
+                  <span className="text-gray-400">Browser Alerts</span>
+                  {fcmGranted === "granted" ? (
+                    <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Active
+                    </span>
+                  ) : fcmGranted === "denied" ? (
+                    <span className="text-red-400 font-semibold">Blocked by browser</span>
+                  ) : (
+                    <button 
+                      onClick={() => requestPushPermission()}
+                      className="px-2 py-0.5 mt-0.5 text-[10px] rounded bg-[#C9A96E]/20 text-[#C9A96E] font-bold hover:bg-[#C9A96E]/30 transition-colors cursor-pointer"
+                    >
+                      Enable Push
+                    </button>
+                  )}
+                </div>
+              )}
 
               <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
                 {notifications.length === 0 ? (

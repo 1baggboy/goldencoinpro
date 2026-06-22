@@ -45,7 +45,7 @@ export const Blog = () => {
             <div className="w-16 h-16 bg-[#C9A96E]/10 rounded-2xl flex items-center justify-center text-[#C9A96E] mx-auto shadow-2xl border border-[#C9A96E]/20">
                 <BookOpen size={32} />
             </div>
-            <h1 className="text-4xl sm:text-7xl font-black tracking-tight text-slate-950 dark:text-white uppercase font-display italic">
+            <h1 className="text-3xl min-[400px]:text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-950 dark:text-white uppercase font-display italic leading-tight whitespace-nowrap overflow-hidden text-ellipsis w-full text-center">
                 Insights & <span className="text-[#C9A96E]">Updates.</span>
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-xl max-w-2xl mx-auto leading-relaxed font-medium">

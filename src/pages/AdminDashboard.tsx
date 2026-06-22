@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Tooltip } from "react-tooltip";
 import { 
@@ -44,6 +44,7 @@ export const AdminDashboard = () => {
   const navigate = useNavigate();
   const { addNotification } = useNotifications();
   const [users, setUsers] = useState<any[]>([]);
+  const lastSavedTotalUsers = useRef<number | null>(null);
 
   useEffect(() => {
     if (!isAdmin) {
@@ -89,11 +90,14 @@ export const AdminDashboard = () => {
       setUsers(u);
       setStats(prev => ({ ...prev, totalUsers: u.length }));
       
-      // Update system stats in Firestore for Landing page
-      try {
-        await updateDoc(doc(db, "system", "stats"), { totalUsers: u.length });
-      } catch (err) {
-        console.warn("Could not update public system stats:", err);
+      // Update system stats in Firestore for Landing page ONLY if user count physically changed
+      if (lastSavedTotalUsers.current !== u.length) {
+        lastSavedTotalUsers.current = u.length;
+        try {
+          await updateDoc(doc(db, "system", "stats"), { totalUsers: u.length });
+        } catch (err) {
+          console.warn("Could not update public system stats:", err);
+        }
       }
     }, (error) => handleFirestoreError(error, OperationType.LIST, "users"));
 

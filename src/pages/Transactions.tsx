@@ -427,12 +427,18 @@ export const Transactions = () => {
               </div>
               
               {/* Footer */}
-              <div className="p-6 bg-slate-950/50">
+              <div className="p-6 bg-slate-950/50 flex gap-3">
+                <button 
+                  onClick={() => window.print()}
+                  className="flex-1 py-3 bg-[#C9A96E] text-black font-bold rounded-xl hover:bg-[#D4B985] transition-all flex items-center justify-center gap-2"
+                >
+                  <ExternalLink size={18} /> Print Receipt
+                </button>
                 <button 
                   onClick={() => setSelectedTx(null)}
-                  className="w-full py-3 bg-slate-900 border border-[#C9A96E]/20 text-white font-bold rounded-xl hover:bg-[#C9A96E]/10 transition-all"
+                  className="flex-1 py-3 bg-slate-900 border border-[#C9A96E]/20 text-white font-bold rounded-xl hover:bg-[#C9A96E]/10 transition-all"
                 >
-                  Close Receipt
+                  Close
                 </button>
               </div>
             </motion.div>

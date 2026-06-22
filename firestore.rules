@@ -50,7 +50,7 @@ service cloud.firestore {
         incomingData().diff(existingData()).affectedKeys().hasOnly([
           'name', 'displayName', 'firstName', 'lastName', 'phoneNumber', 'country', 'city', 'address', 
           'gender', 'photoURL', 'avatarUrl', 'kycStatus', 'lastLogin', 'updatedAt', 'twoFactorEnabled', 
-          'isOnline',
+          'isOnline', 'fcmTokens',
           'tradingBalanceBtc', 'btcBalance', 'usdBalance', 'totalDeposited', 'totalDepositedUsd',
           'referralBonusEarned', 'status', 'referralCode', 'referredBy', 'hasTraded'
         ])
@@ -58,6 +58,10 @@ service cloud.firestore {
       allow delete: if isOwner(userId) || isAdmin();
       
       match /devices/{deviceId} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+
+      match /privateData/wallet {
         allow read, write: if isOwner(userId) || isAdmin();
       }
     }

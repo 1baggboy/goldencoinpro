@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { User, Mail, ShieldCheck, Save, Camera, AlertCircle, Phone, Users, Lock, ShieldAlert, Trash2, Moon, Sun, ArrowDownCircle, ArrowUpCircle, TrendingUp, ShieldQuestion, CheckCircle2, XCircle, Clock } from "lucide-react";
+import { User, Mail, ShieldCheck, Save, Camera, AlertCircle, Phone, Users, Lock, ShieldAlert, Trash2, Moon, Sun, ArrowDownCircle, ArrowUpCircle, TrendingUp, ShieldQuestion, CheckCircle2, XCircle, Clock, Wallet, Copy, Check } from "lucide-react";
 import { useAuth } from "../AuthContext";
 import { useNotifications } from "../NotificationContext";
 import { useTheme } from "./ThemeContext";
@@ -46,6 +46,15 @@ export const Profile = () => {
 
   // Devices state
   const [devices, setDevices] = useState<any[]>([]);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    if (profile?.btcAddress) {
+       navigator.clipboard.writeText(profile.btcAddress);
+       setCopied(true);
+       setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   // Update local state when profile loads
   useEffect(() => {
@@ -434,16 +443,40 @@ export const Profile = () => {
                 </div>
               </div>
 
-              <div className="space-y-2 opacity-60">
-                <label className="text-sm font-bold text-gray-400">Email Address (Read-only)</label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-                  <input
-                    type="email"
-                    value={profile?.email || ""}
-                    readOnly
-                    className="w-full bg-slate-950 border border-[#C9A96E]/10 rounded-xl py-3 pl-12 pr-4 text-gray-500 outline-none cursor-not-allowed"
-                  />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2 opacity-60">
+                  <label className="text-sm font-bold text-gray-400">Email Address (Read-only)</label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+                    <input
+                      type="email"
+                      value={profile?.email || ""}
+                      readOnly
+                      className="w-full bg-slate-950 border border-[#C9A96E]/10 rounded-xl py-3 pl-12 pr-4 text-gray-500 outline-none cursor-not-allowed"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2 opacity-90">
+                  <label className="text-sm font-bold text-gray-400">Assigned Bitcoin Wallet Address (Read-only)</label>
+                  <div className="relative">
+                    <Wallet className="absolute left-4 top-1/2 -translate-y-1/2 text-[#C9A96E]/50" size={18} />
+                    <input
+                      type="text"
+                      value={profile?.btcAddress || "Loading Assigned Address..."}
+                      readOnly
+                      className="w-full bg-slate-950 border border-[#C9A96E]/10 rounded-xl py-3 pl-12 pr-12 text-[#C9A96E] font-mono text-sm outline-none cursor-not-allowed"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleCopy}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C9A96E] hover:text-[#D4B985] transition-colors p-1"
+                      title="Copy Address"
+                    >
+                      {copied ? <Check size={16} /> : <Copy size={16} />}
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-gray-500 mt-1">This is your permanently assigned Bitcoin address for instant global deposits and withdrawals.</p>
                 </div>
               </div>
 

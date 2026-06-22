@@ -37,8 +37,8 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   ];
 
   return (
-    <header className="h-20 lg:h-24 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-[#C9A96E]/10 px-6 lg:px-12 flex items-center justify-between sticky top-0 z-50">
-      <div className="flex items-center gap-3 sm:gap-4 flex-1">
+    <header className="h-16 sm:h-20 lg:h-22 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-[#C9A96E]/10 px-3 sm:px-6 lg:px-10 flex items-center justify-between sticky top-0 z-50">
+      <div className="flex items-center gap-1.5 sm:gap-4 flex-1">
         <button 
           type="button"
           onClick={(e) => {
@@ -46,24 +46,24 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
             e.stopPropagation();
             onMenuClick?.();
           }} 
-          className="p-2 lg:p-3 text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-xl transition-colors relative z-[60] lg:hidden"
+          className="p-1.5 sm:p-2 text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-xl transition-colors relative z-[60] md:hidden"
         >
-          <Menu size={24} />
+          <Menu size={22} />
         </button>
-        <Link to="/" className="flex items-center gap-2 relative z-50 mr-4">
-          <Logo size="sm" className="lg:h-10" />
+        <Link to="/" className="flex items-center gap-1.5 sm:gap-2 relative z-50 mr-2 sm:mr-4 md:hidden">
+          <Logo size="sm" className="h-7 sm:h-8" />
         </Link>
 
         {/* Live BTC Ticker in Navbar */}
-        <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 bg-slate-100 dark:bg-slate-900 rounded-full border border-[#C9A96E]/10">
+        <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-900 rounded-full border border-[#C9A96E]/10 shrink-0">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-[10px] font-black text-[#C9A96E] uppercase tracking-wider">Live BTC</span>
+          <span className="text-[9px] font-black text-[#C9A96E] uppercase tracking-wider">Live BTC</span>
           <span className="text-xs font-mono font-bold">
             {btcPrice > 0 ? `$${btcPrice.toLocaleString()}` : "Connecting..."}
           </span>
           {btcPrice > 0 && (
             <span className={cn(
-              "text-[10px] font-bold px-1.5 py-0.5 rounded-md",
+              "text-[9px] font-bold px-1.5 py-0.5 rounded-md",
               btcChange >= 0 ? "bg-green-500/10 text-green-500" : "bg-red-500/10 text-red-500"
             )}>
               {btcChange >= 0 ? "+" : ""}{btcChange.toFixed(2)}%
@@ -74,16 +74,16 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
 
 
 
-      <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
+      <div className="flex items-center gap-1.5 sm:gap-4 md:gap-6">
         <ThemeToggle />
-        <div className="hidden lg:flex items-center gap-3 xl:gap-8">
-          <Link to="/" className="text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">Home</Link>
-          <Link to="/about" className="text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">About Us</Link>
-          <Link to="/features" className="text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">Our Features</Link>
+        <div className="hidden lg:flex items-center gap-2.5 xl:gap-5">
+          <Link to="/" className="text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">Home</Link>
+          <Link to="/about" className="text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">About Us</Link>
+          <Link to="/features" className="text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors whitespace-nowrap">Our Features</Link>
 
           {/* Help Dropdown */}
           <div className="relative group">
-            <button className="flex items-center gap-1 text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
+            <button className="flex items-center gap-1 text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
               Help <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
             </button>
             <div className="absolute top-full left-0 pt-4 w-56 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-[100]">
@@ -99,7 +99,7 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
 
           {/* Our Company Dropdown */}
           <div className="relative group">
-            <button className="flex items-center gap-1 text-[10px] xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
+            <button className="flex items-center gap-1 text-[10px] xl:text-xs 2xl:text-sm font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors cursor-pointer outline-none whitespace-nowrap">
               Our Company <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
             </button>
             <div className="absolute top-full left-0 pt-4 w-48 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-[100]">
@@ -114,11 +114,11 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
         <div className="relative">
           <button 
             onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-            className="p-2 text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors relative"
+            className="p-1.5 text-gray-600 dark:text-gray-400 hover:text-[#C9A96E] transition-colors relative"
           >
-            <Bell size={22} />
+            <Bell size={20} />
             {unreadCount > 0 && (
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-950"></span>
             )}
           </button>
           <NotificationDropdown 
@@ -127,16 +127,16 @@ export const Navbar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
           />
         </div>
 
-        <Link to="/profile" className="flex items-center gap-3 pl-4 border-l border-[#C9A96E]/10 hover:opacity-80 transition-opacity">
+        <Link to="/profile" className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-[#C9A96E]/10 hover:opacity-80 transition-opacity">
           <div className="text-right hidden sm:block">
-            <p className="text-sm font-semibold text-gray-900 dark:text-white">{profile?.displayName || "User"}</p>
-            <p className="text-xs text-gray-500 capitalize">{profile?.role || "Member"}</p>
+            <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white leading-tight">{profile?.displayName || "User"}</p>
+            <p className="text-[10px] text-gray-500 capitalize leading-tight">{profile?.role || "Member"}</p>
           </div>
-          <div className="w-10 h-10 bg-[#C9A96E]/10 border border-[#C9A96E]/30 rounded-full flex items-center justify-center overflow-hidden">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#C9A96E]/10 border border-[#C9A96E]/30 rounded-full flex items-center justify-center overflow-hidden shrink-0">
             {profile?.photoURL ? (
               <img src={profile.photoURL} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             ) : (
-              <User className="text-[#C9A96E]" size={20} />
+              <User className="text-[#C9A96E]" size={18} />
             )}
           </div>
         </Link>

@@ -60,9 +60,11 @@ if (!admin.apps || !admin.apps.length) {
 
 export let db: admin.firestore.Firestore | null = null;
 export let auth: admin.auth.Auth | null = null;
+export let messaging: admin.messaging.Messaging | null = null;
 
 if (admin.apps && admin.apps.length) {
   auth = admin.auth();
+  messaging = admin.messaging();
   try {
     const configPath = path.join(process.cwd(), 'firebase-applet-config.json');
     if (fs.existsSync(configPath)) {

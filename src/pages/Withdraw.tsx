@@ -105,32 +105,38 @@ export const Withdraw = () => {
 
     setLoading(true);
     try {
-      const txId = 'TX-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-      await addDoc(collection(db, "transactions"), {
-        userId: user.uid,
-        type: "WITHDRAWAL",
-        txId: txId,
-        amountUsd: valUsd,
-        amountBtc: amountBtc,
-        status: "PENDING",
-        walletAddress: walletAddress,
-        timestamp: new Date().toISOString(),
-      });
-      
-      // Update user balance immediately to prevent double-spending pending approval
-      await updateDoc(doc(db, "users", user.uid), {
-        btcBalance: increment(-amountBtc),
-        tradingBalanceBtc: increment(-amountBtc),
-        usdBalance: increment(-valUsd)
+      // Use the new server endpoint for sending bitcoin
+      const response = await fetch('/api/transactions/send-bitcoin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          toAddress: walletAddress,
+          amountUsd: valUsd,
+          amountBtc: amountBtc
+        })
       });
 
-      await addNotification(user.uid, "Withdrawal Requested", `Your withdrawal request for $${valUsd.toLocaleString()} (~${amountBtc.toFixed(8)} BTC) has been submitted for approval. Your balance has been adjusted.`, "info");
+      if (!response.ok) {
+         const errData = await response.json();
+         throw new Error(errData.error || "Failed to process withdrawal");
+      }
+
+      const result = await response.json();
+
+      if (result.internal) {
+         await addNotification(user.uid, "Internal Transfer Complete", `Your transfer of $${valUsd.toLocaleString()} to ${walletAddress} was successfully completed instantly.`, "success");
+      } else {
+         await addNotification(user.uid, "Withdrawal Requested", `Your withdrawal request for $${valUsd.toLocaleString()} (~${amountBtc.toFixed(8)} BTC) has been processed.`, "info");
+      }
       
       // Notify admins via email (Extension will pick this up)
       try {
         await sendAdminEmailNotification(
           "Critical Event: Withdrawal Request",
-          `User ${profile?.displayName || user.email} has requested a withdrawal of $${valUsd.toLocaleString()} (~${amountBtc.toFixed(8)} BTC) to wallet ${walletAddress}. TX ID: ${txId}`
+          `User ${profile?.displayName || user.email} has requested a withdrawal of $${valUsd.toLocaleString()} (~${amountBtc.toFixed(8)} BTC) to wallet ${walletAddress}.`
         );
       } catch (adminErr) {
         console.error("Failed to send admin email notification:", adminErr);

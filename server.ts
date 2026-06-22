@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from "express";
 import path from "path";
+import fs from "fs";
 import { createServer as createViteServer } from "vite";
 import cors from "cors";
 import helmet from "helmet";
@@ -167,6 +168,30 @@ async function startServer() {
     const btcVal = globalMarketDataCache?.btc?.usd || 67340;
     const btcChange = globalMarketDataCache?.btc?.change || 1.5;
     res.json({ price: btcVal, change: btcChange });
+  });
+
+  // Provide client-accessible config for FCM initializing and service accounts (public info only)
+  app.get("/api/firebase-config", (req, res) => {
+    try {
+      const configPath = path.join(process.cwd(), 'firebase-applet-config.json');
+      if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        res.json({
+          apiKey: config.apiKey,
+          authDomain: config.authDomain,
+          projectId: config.projectId,
+          storageBucket: config.storageBucket,
+          messagingSenderId: config.messagingSenderId,
+          appId: config.appId,
+          firestoreDatabaseId: config.firestoreDatabaseId
+        });
+      } else {
+        res.status(404).json({ error: "Config file not found" });
+      }
+    } catch (error) {
+      console.error("Failed to read firebase config file:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
   
   // Cron Jobs
