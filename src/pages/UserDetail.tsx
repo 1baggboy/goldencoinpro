@@ -95,9 +95,38 @@ export const UserDetail = () => {
         setUserProfile({ id: doc.id, ...data });
         setEditUsdBalance(data.usdBalance?.toString() || "0");
         setEditWallet(data.btcWalletAddress || "");
+      } else {
+        // Try local backup
+        const localListStr = localStorage.getItem("local_registered_users") || "[]";
+        try {
+          const list = JSON.parse(localListStr);
+          const localU = list.find((item: any) => item.uid === userId);
+          if (localU) {
+            setUserProfile({ id: localU.uid, ...localU });
+            setEditUsdBalance(localU.usdBalance?.toString() || "0");
+            setEditWallet(localU.btcAddress || "");
+          }
+        } catch (e) {
+          console.warn("Failed to find local user detail backup:", e);
+        }
       }
       setLoading(false);
     }, (err) => {
+      // Try local backup on error too
+      const localListStr = localStorage.getItem("local_registered_users") || "[]";
+      try {
+        const list = JSON.parse(localListStr);
+        const localU = list.find((item: any) => item.uid === userId);
+        if (localU) {
+          setUserProfile({ id: localU.uid, ...localU });
+          setEditUsdBalance(localU.usdBalance?.toString() || "0");
+          setEditWallet(localU.btcAddress || "");
+          setLoading(false);
+          return;
+        }
+      } catch (e) {
+        console.warn("Failed to find local user detail backup on error:", e);
+      }
       setLoading(false);
       handleFirestoreError(err, OperationType.GET, `users/${userId}`);
     });

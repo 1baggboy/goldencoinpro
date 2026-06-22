@@ -19,6 +19,7 @@ import { generateBitcoinWallet } from "../lib/bitcoinUtils";
 import { Logo } from "../components/Logo";
 import { APP_CONFIG } from "../config";
 import { HumanVerifier } from "../components/HumanVerifier";
+import { trackLocalUser } from "../lib/localUsersTracker";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -246,10 +247,12 @@ export const Login = () => {
           };
           
           localStorage.setItem('cached_profile_' + userCredential.user.uid, JSON.stringify(userData));
+          trackLocalUser(userData);
           await setDoc(userDocRef, userData, { merge: true });
         } else {
           userData = userDoc.data();
           localStorage.setItem('cached_profile_' + userCredential.user.uid, JSON.stringify(userData));
+          trackLocalUser(userData);
         }
       } catch (err: any) {
         handleFirestoreError(err, OperationType.GET, `users/${userCredential.user.uid}`);

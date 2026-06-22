@@ -5,6 +5,7 @@ import { auth, db } from "./firebase";
 import { APP_CONFIG } from "./config";
 import { generateReferralCode } from "./lib/utils";
 import { generateBitcoinWallet } from "./lib/bitcoinUtils";
+import { trackLocalUser } from "./lib/localUsersTracker";
 
 interface UserProfile {
   uid: string;
@@ -240,6 +241,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               
               // Persist up-to-date profile in localStorage cache
               localStorage.setItem('cached_profile_' + firebaseUser.uid, JSON.stringify(data));
+              trackLocalUser(data);
               
               // Fix missing referral code immediately
               if (!data.referralCode) {
@@ -307,6 +309,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 
                 // Cache it
                 localStorage.setItem('cached_profile_' + firebaseUser.uid, JSON.stringify(fallbackProfile));
+                trackLocalUser(fallbackProfile);
                 setProfile(fallbackProfile);
                 
                 // Try to persist it to firestore, ignoring errors gracefully (such as quota constraints)

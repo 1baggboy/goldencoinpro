@@ -38,6 +38,7 @@ import { usePrices } from "../PriceContext";
 import { format } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { getMergedLocalUsers } from "../lib/localUsersTracker";
 
 export const AdminDashboard = () => {
   const { isAdmin } = useAuth();
@@ -87,14 +88,15 @@ export const AdminDashboard = () => {
     // Fetch users
     const unsubUsers = onSnapshot(collection(db, "users"), async (snap) => {
       const u = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      setUsers(u);
-      setStats(prev => ({ ...prev, totalUsers: u.length }));
+      const merged = getMergedLocalUsers(u);
+      setUsers(merged);
+      setStats(prev => ({ ...prev, totalUsers: merged.length }));
       
       // Update system stats in Firestore for Landing page ONLY if user count physically changed
-      if (lastSavedTotalUsers.current !== u.length) {
-        lastSavedTotalUsers.current = u.length;
+      if (lastSavedTotalUsers.current !== merged.length) {
+        lastSavedTotalUsers.current = merged.length;
         try {
-          await updateDoc(doc(db, "system", "stats"), { totalUsers: u.length });
+          await updateDoc(doc(db, "system", "stats"), { totalUsers: merged.length });
         } catch (err) {
           console.warn("Could not update public system stats:", err);
         }

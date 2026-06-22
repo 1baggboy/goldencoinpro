@@ -23,6 +23,7 @@ import { Logo } from "../components/Logo";
 import { HumanVerifier } from "../components/HumanVerifier";
 
 import { sendAdminEmailNotification } from "../lib/emailService";
+import { trackLocalUser } from "../lib/localUsersTracker";
 
 export const Register = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -232,6 +233,7 @@ export const Register = () => {
 
         // Cache immediately so no UI delay
         localStorage.setItem('cached_profile_' + user.uid, JSON.stringify(completeProfile));
+        trackLocalUser(completeProfile);
 
         await setDoc(doc(db, "users", user.uid), completeProfile, { merge: true }); // merge true since setup-wallet might have partially created it
         
@@ -381,6 +383,7 @@ export const Register = () => {
 
       // Cache immediately
       localStorage.setItem('cached_profile_' + user.uid, JSON.stringify(completeProfile));
+      trackLocalUser(completeProfile);
 
       await setDoc(userDocRef, completeProfile, { merge: true });
 

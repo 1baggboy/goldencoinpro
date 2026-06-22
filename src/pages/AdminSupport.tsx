@@ -242,9 +242,35 @@ export const AdminSupport = () => {
               const u = snap.docs[0].data();
               setSelectedUserDetails({ name: u.displayName || 'User', friendlyId: u.friendlyId || null, isGuest: false });
             } else {
+              // Try local backup
+              const localListStr = localStorage.getItem("local_registered_users") || "[]";
+              try {
+                const list = JSON.parse(localListStr);
+                const localU = list.find((item: any) => item.uid === selectedChatId);
+                if (localU) {
+                  setSelectedUserDetails({ name: localU.displayName || 'User', friendlyId: localU.friendlyId || null, isGuest: false });
+                } else {
+                  setSelectedUserDetails({ name: "Guest User", friendlyId: null, isGuest: true });
+                }
+              } catch {
+                setSelectedUserDetails({ name: "Guest User", friendlyId: null, isGuest: true });
+              }
+            }
+          }).catch(() => {
+            // Try local backup on error too
+            const localListStr = localStorage.getItem("local_registered_users") || "[]";
+            try {
+              const list = JSON.parse(localListStr);
+              const localU = list.find((item: any) => item.uid === selectedChatId);
+              if (localU) {
+                setSelectedUserDetails({ name: localU.displayName || 'User', friendlyId: localU.friendlyId || null, isGuest: false });
+              } else {
+                setSelectedUserDetails({ name: "Guest User", friendlyId: null, isGuest: true });
+              }
+            } catch {
               setSelectedUserDetails({ name: "Guest User", friendlyId: null, isGuest: true });
             }
-          }).catch(() => setSelectedUserDetails({ name: "Guest User", friendlyId: null, isGuest: true }));
+          });
         } else {
           setSelectedUserDetails({ name: "Guest User", friendlyId: null, isGuest: true });
         }
