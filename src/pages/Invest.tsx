@@ -33,7 +33,7 @@ const INVESTMENT_PLANS = [
     return: 1.25, // +25%
     duration: 60, // 1 Hour
     minAmount: 1000, // USD
-    description: "Ideal for short-term growth. Target up to 25% return over a 1-hour cycle. Minimum deposit $1,000.",
+    description: "Ideal for exploring micro-arbitrage cycles. Aims for a variable return target of up to 25% based on real-time market fluctuations. Subject to market and liquidity risks. Minimum deposit $1,000.",
     icon: Zap,
     color: "blue"
   },
@@ -43,7 +43,7 @@ const INVESTMENT_PLANS = [
     return: 1.50, // +50%
     duration: 360, // 6 Hours
     minAmount: 500, // USD
-    description: "Professional grade returns. Target up to 50% return over a 6-hour cycle. Minimum deposit $500.",
+    description: "Designed for mid-term trend tracking and leverage strategies. Target returns of up to 50% depending on quantitative model performance. Principal risk applies. Minimum deposit $500.",
     icon: TrendingUp,
     color: "gold"
   },
@@ -53,7 +53,7 @@ const INVESTMENT_PLANS = [
     return: 2.0, // +100%
     duration: 1440, // 24 Hours
     minAmount: 1000, // USD
-    description: "Maximum yield potential. Target up to 100% return over a 24-hour cycle. Minimum deposit $1000.",
+    description: "High-tier liquidity provision and multi-exchange hedging. Maximum target returns of up to 100% over a 24-hour cycle, structured for advanced portfolios. Fully exposed to digital asset volatility. Minimum deposit $1,000.",
     icon: ShieldCheck,
     color: "green"
   }
@@ -405,6 +405,63 @@ export const Invest = () => {
                 );
               })
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Dynamic How-It-Works & Transparent Disclosures Panel */}
+      <div className="bg-slate-900 border border-[#C9A96E]/20 rounded-2xl p-6 lg:p-8 space-y-8 mt-12">
+        <div>
+          <h2 className="text-xl font-bold text-white uppercase tracking-tight flex items-center gap-2">
+            <div className="w-1 h-6 bg-[#C9A96E] rounded-full"></div>
+            How the Business Operates
+          </h2>
+          <p className="text-xs text-gray-400 mt-1">
+            Understanding our business model, flow of capital, and target allocation strategies.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-gray-300">
+          <div className="p-4 bg-slate-950 border border-[#C9A96E]/5 rounded-xl space-y-2">
+            <div className="text-xs font-black text-[#C9A96E] uppercase tracking-wider">1. Capital Pooling</div>
+            <p className="text-xs text-gray-400">
+              When you invest, your BTC is pooled into institutional-grade multi-signature cold storage vaults under strict custody controls.
+            </p>
+          </div>
+          <div className="p-4 bg-slate-950 border border-[#C9A96E]/5 rounded-xl space-y-2">
+            <div className="text-xs font-black text-[#C9A96E] uppercase tracking-wider">2. Liquidity Routing</div>
+            <p className="text-xs text-gray-400">
+              Our automated smart router distributes capital across premier decentralized liquidity nodes and exchange spreads to capture arbitrage gaps.
+            </p>
+          </div>
+          <div className="p-4 bg-slate-950 border border-[#C9A96E]/5 rounded-xl space-y-2">
+            <div className="text-xs font-black text-[#C9A96E] uppercase tracking-wider">3. Yield Generation</div>
+            <p className="text-xs text-gray-400">
+              Profits are generated strictly from dynamic pricing spread variances, quantitative trend hedging, and liquidity provider (LP) fees.
+            </p>
+          </div>
+          <div className="p-4 bg-slate-950 border border-[#C9A96E]/5 rounded-xl space-y-2">
+            <div className="text-xs font-black text-[#C9A96E] uppercase tracking-wider">4. Automated Settlement</div>
+            <p className="text-xs text-gray-400">
+              Upon maturity, the contract cycle completes and funds (principal + net profit) are released back to your available ledger balance.
+            </p>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-[#C9A96E]/10 space-y-4">
+          <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
+            <AlertCircle size={14} /> Critical Risk & Performance Disclosure
+          </h3>
+          <div className="text-xs text-gray-400 space-y-2 leading-relaxed">
+            <p>
+              <strong>No Guaranteed Profits:</strong> Digital assets and cryptocurrency trading involve significant market volatility, liquidity shifts, and systematic risks. Past performance and plan return target estimates are <strong>not indicative or guarantees of future results</strong>.
+            </p>
+            <p>
+              <strong>Risk of Capital Loss:</strong> Trading and providing liquidity carry risks including smart contract vulnerabilities, counterparty defaults, rapid price slides, and exchange disruptions. <strong>Never invest capital that you cannot afford to lose entirely.</strong>
+            </p>
+            <p>
+              <strong>Transparent Withdrawals:</strong> Withdrawals are processed within 24 hours after security review, with a minimum limit of $50 USD. Standard network blockchain fee applies (approximately 0.0001 BTC). No hidden fees or locked reserves exist outside of active investment cycles.
+            </p>
           </div>
         </div>
       </div>

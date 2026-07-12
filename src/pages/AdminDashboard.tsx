@@ -101,7 +101,12 @@ export const AdminDashboard = () => {
           console.warn("Could not update public system stats:", err);
         }
       }
-    }, (error) => handleFirestoreError(error, OperationType.LIST, "users"));
+    }, (error) => {
+      handleFirestoreError(error, OperationType.LIST, "users");
+      const merged = getMergedLocalUsers([]);
+      setUsers(merged);
+      setStats(prev => ({ ...prev, totalUsers: merged.length }));
+    });
 
     // Fetch active investments count
     const qI = query(collection(db, "investments"), where("status", "==", "active"));
@@ -167,8 +172,18 @@ export const AdminDashboard = () => {
       });
       
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to approve deposit");
+        let errMsg = "Failed to approve deposit";
+        try {
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            errMsg = data.error || errMsg;
+          } else {
+            const text = await res.text();
+            errMsg = text || errMsg;
+          }
+        } catch (err) {}
+        throw new Error(errMsg);
       }
 
       await addNotification(tx.userId, "Deposit Approved", `Your deposit of ${tx.amountBtc || tx.amount} BTC has been confirmed and added to your balance.`, "success");
@@ -192,8 +207,18 @@ export const AdminDashboard = () => {
       });
       
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to approve withdrawal");
+        let errMsg = "Failed to approve withdrawal";
+        try {
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            errMsg = data.error || errMsg;
+          } else {
+            const text = await res.text();
+            errMsg = text || errMsg;
+          }
+        } catch (err) {}
+        throw new Error(errMsg);
       }
 
       await addNotification(tx.userId, "Withdrawal Approved", `Your withdrawal request for ${tx.amountBtc || tx.amount} BTC has been approved and processed.`, "success");
@@ -221,8 +246,18 @@ export const AdminDashboard = () => {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to reject transaction");
+        let errMsg = "Failed to reject transaction";
+        try {
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            errMsg = data.error || errMsg;
+          } else {
+            const text = await res.text();
+            errMsg = text || errMsg;
+          }
+        } catch (err) {}
+        throw new Error(errMsg);
       }
 
       await addNotification(rejectingTx.userId, `${rejectingTx.type.charAt(0).toUpperCase() + rejectingTx.type.slice(1)} Rejected`, `Your ${rejectingTx.type} request for ${rejectingTx.amount} BTC has been rejected. Reason: ${rejectReason}`, "error");
@@ -257,8 +292,18 @@ export const AdminDashboard = () => {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to approve KYC");
+        let errMsg = "Failed to approve KYC";
+        try {
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            errMsg = data.error || errMsg;
+          } else {
+            const text = await res.text();
+            errMsg = text || errMsg;
+          }
+        } catch (err) {}
+        throw new Error(errMsg);
       }
 
       await addNotification(kyc.userId, "KYC Verified", "Your KYC verification has been approved. You can now access all features, including withdrawals.", "success");
@@ -287,8 +332,18 @@ export const AdminDashboard = () => {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to reject KYC");
+        let errMsg = "Failed to reject KYC";
+        try {
+          const contentType = res.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await res.json();
+            errMsg = data.error || errMsg;
+          } else {
+            const text = await res.text();
+            errMsg = text || errMsg;
+          }
+        } catch (err) {}
+        throw new Error(errMsg);
       }
 
       await addNotification(rejectingKyc.userId, "KYC Rejected", `Your KYC verification was rejected. Reason: ${rejectReason}`, "error");

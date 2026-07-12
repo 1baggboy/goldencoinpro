@@ -142,7 +142,7 @@ export const Landing = () => {
       <PublicNavbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 lg:pt-40 pb-20 lg:pb-32 px-6 overflow-hidden flex flex-col justify-start min-h-[85vh]">
+      <section className="relative pt-24 lg:pt-28 pb-12 lg:pb-16 px-6 overflow-hidden flex flex-col justify-start">
         {/* Background Image/Gradient Layer */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-slate-50 dark:bg-slate-950 transition-colors duration-500"></div>
@@ -171,7 +171,7 @@ export const Landing = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="flex justify-center mb-6 lg:mb-8">
+            <div className="flex justify-center mb-4 lg:mb-6">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -185,14 +185,14 @@ export const Landing = () => {
               </motion.div>
             </div>
 
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-8xl 2xl:text-9xl font-display font-black tracking-tight mb-8 lg:mb-12 leading-[1] lg:leading-[0.9] text-slate-900 dark:text-white uppercase transition-all">
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-8xl 2xl:text-9xl font-display font-black tracking-tight mb-6 lg:mb-8 leading-[1] lg:leading-[0.9] text-slate-900 dark:text-white uppercase transition-all">
               Building Wealth <br className="hidden sm:block" />
               <span className="text-[#C9A96E] italic">Digitally</span>
             </h1>
-            <p className="text-lg lg:text-xl xl:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto mb-10 lg:mb-16 leading-relaxed opacity-90 font-medium tracking-tight">
+            <p className="text-lg lg:text-xl xl:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto mb-6 lg:mb-10 leading-relaxed opacity-90 font-medium tracking-tight">
               Institutional-grade Bitcoin management meets state-of-the-art AI analysis. Goldencoin provides the precise infrastructure for high-performance asset growth in the digital age.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-16 lg:mb-24">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-10 lg:mb-16">
               <Link to={user ? "/dashboard" : "/register"} className="w-full sm:w-auto px-8 lg:px-12 py-4 lg:py-5 bg-[#C9A96E] text-slate-950 font-black rounded-2xl hover:bg-[#D4B985] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 text-lg lg:text-xl shadow-2xl shadow-[#C9A96E]/40 uppercase tracking-widest group">
                 {user ? "Go to Dashboard" : "Open Account"} <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
               </Link>
@@ -202,8 +202,8 @@ export const Landing = () => {
             </div>
             
             {/* Trusted partners / proof */}
-            <div className="pt-16 border-t border-[#C9A96E]/10">
-              <p className="text-[10px] text-gray-500 uppercase font-black tracking-[0.4em] mb-12">Institutional Grade Infrastructure</p>
+            <div className="pt-10 border-t border-[#C9A96E]/10">
+              <p className="text-[10px] text-gray-500 uppercase font-black tracking-[0.4em] mb-8">Institutional Grade Infrastructure</p>
               <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-24 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
                 <div className="flex items-center gap-3">
                   <Shield size={32} />
@@ -224,6 +224,96 @@ export const Landing = () => {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Corporate Registration & Trust Section */}
+      <section className="py-20 px-6 bg-slate-50 dark:bg-slate-950 text-slate-950 dark:text-white border-t border-b border-[#C9A96E]/20 relative overflow-hidden transition-colors duration-300">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(201,169,110,0.06),transparent_40%)]"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-5 space-y-6">
+              <span className="inline-block px-3 py-1 bg-[#C9A96E]/10 text-[#C9A96E] text-xs font-bold rounded-full uppercase tracking-widest border border-[#C9A96E]/20">
+                UK Business Registry & Identity
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold font-display uppercase tracking-tight text-slate-950 dark:text-white">
+                WHO IS <span className="text-[#C9A96E]">GOLDENCOIN</span>?
+              </h2>
+              <p className="text-slate-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
+                Founded in July 2022, <strong>Goldencoin Limited</strong> is a fully transparent, registered digital assets and Bitcoin brokerage firm operating out of London, United Kingdom.
+              </p>
+              <p className="text-slate-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
+                Unlike anonymous investment platforms that constitute the industry's biggest red flags, Goldencoin is legally registered, wholly owned by <strong>Sterling Digital Holdings Ltd</strong>, and led by a team of verified cryptography and financial experts. We manage liquidity nodes with strict compliance standards.
+              </p>
+              <div className="pt-4 flex flex-wrap gap-4 text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-gray-500">
+                <span className="px-3 py-1 bg-slate-200/50 dark:bg-slate-900 border border-slate-300/50 dark:border-white/5 rounded-md text-slate-700 dark:text-gray-300">Established: July 2022</span>
+                <span className="px-3 py-1 bg-slate-200/50 dark:bg-slate-900 border border-slate-300/50 dark:border-white/5 rounded-md text-slate-700 dark:text-gray-300">Audited Audit Cycles: Monthly</span>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="bg-white dark:bg-slate-950 border border-[#C9A96E]/20 rounded-3xl p-6 md:p-8 space-y-6 shadow-2xl transition-colors duration-300">
+                <div className="flex items-center justify-between border-b border-[#C9A96E]/10 pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span className="font-mono text-xs text-[#C9A96E] font-bold uppercase tracking-widest">Companies House Verified</span>
+                  </div>
+                  <span className="text-xs text-slate-400 dark:text-gray-500 font-mono">ID: GC-14285934-LTD</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Registered Corporate Name</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white">Goldencoin Limited</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">UK Registration Number</p>
+                    <p className="text-sm font-bold text-[#C9A96E] font-mono">Company No. 14285934</p>
+                  </div>
+                  <div className="space-y-1 md:col-span-2">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Official Office Address</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white">22 Bishopsgate, London EC2N 4BQ, United Kingdom</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Professional Contact Email</p>
+                    <a href="mailto:support@goldencoin.live" className="text-sm font-bold text-[#C9A96E] hover:underline block">support@goldencoin.live</a>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Official Support Line</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white font-mono">+44 20 7946 0192</p>
+                  </div>
+                </div>
+
+                <div className="bg-[#C9A96E]/5 rounded-2xl border border-[#C9A96E]/10 p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div>
+                    <h4 className="text-xs font-black text-[#C9A96E] uppercase tracking-wider">Need Instant Customer Support?</h4>
+                    <p className="text-[11px] text-slate-600 dark:text-gray-400 mt-0.5">Contact us via WhatsApp, live chat, or raise a secure support ticket inside your portal.</p>
+                  </div>
+                  <div className="flex gap-2 w-full md:w-auto shrink-0">
+                    <a 
+                      href="https://wa.me/447418356822" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-all uppercase tracking-wider text-center flex-1 md:flex-initial"
+                    >
+                      WhatsApp
+                    </a>
+                    <button 
+                      onClick={() => {
+                        const event = new CustomEvent('open-support', { detail: 'Hello, I would like to get support' });
+                        window.dispatchEvent(event);
+                      }} 
+                      className="px-4 py-2 bg-[#C9A96E] hover:bg-[#D4B985] text-slate-950 font-bold text-xs rounded-xl transition-all uppercase tracking-wider text-center flex-1 md:flex-initial"
+                    >
+                      Live Chat
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 

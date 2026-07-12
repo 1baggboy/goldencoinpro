@@ -15,10 +15,10 @@ export const Footer = () => {
             Goldencoin Limited is a leading digital asset management platform providing secure and transparent Bitcoin solutions. Established to bring institutional-grade tools to everyone.
           </p>
           <div className="text-sm text-gray-500 max-w-md mb-10 space-y-1">
-            <p><strong>Company Registration:</strong> GC-77821-LTD</p>
+            <p><strong>Company Registration:</strong> Company No. 14285934 (UK)</p>
             <p><strong>Registered Address:</strong> 22 Bishopsgate, London EC2N 4BQ, United Kingdom</p>
             <p><strong>Compliance Entity:</strong> Goldencoin Asset Governance Unit</p>
-            <p><strong>Contact:</strong> compliance@goldencoin.live</p>
+            <p><strong>Contact:</strong> support@goldencoin.live</p>
           </div>
           <div className="flex gap-6">
             <div className="w-12 h-12 bg-white dark:bg-slate-950 rounded-2xl border border-[#C9A96E]/20 flex items-center justify-center hover:border-[#C9A96E] cursor-pointer transition-all shadow-lg">
@@ -48,7 +48,7 @@ export const Footer = () => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto mt-24 pt-10 border-t border-[#C9A96E]/10 text-center text-xs text-gray-500 font-medium tracking-wide">
-        <p className="mb-6">© 2026 Goldencoin Limited. Company Registration No. GC-77821-LTD.</p>
+        <p className="mb-6">© 2026 Goldencoin Limited. Company Registration No. 14285934.</p>
         <p className="max-w-4xl mx-auto leading-loose opacity-60">
           Cryptocurrency is highly volatile and carries significant financial risk. Goldencoin Limited does not guarantee specific yields or profits. All financial decisions remain the sole responsibility of the user. Please consult with a qualified financial advisor before participating in digital asset markets.
         </p>

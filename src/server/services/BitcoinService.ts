@@ -4,6 +4,7 @@ import * as ecc from 'tiny-secp256k1';
 import fetch from 'node-fetch';
 import { db } from '../lib/firebase';
 import admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 const ECPair = ECPairFactory(ecc);
 
@@ -89,8 +90,8 @@ export class BitcoinService {
          const usdValue = newDeposits * btcPrice;
          
          await db.collection('users').doc(userId).update({
-            usdBalance: admin.firestore.FieldValue.increment(usdValue),
-            btcBalance: admin.firestore.FieldValue.increment(newDeposits)
+            usdBalance: FieldValue.increment(usdValue),
+            btcBalance: FieldValue.increment(newDeposits)
          });
       }
 
@@ -115,14 +116,14 @@ export class BitcoinService {
       currency: 'BTC',
       walletAddress: toAddress,
       method: 'BITCOIN_TRANSFER',
-      timestamp: admin.firestore.FieldValue.serverTimestamp()
+      timestamp: FieldValue.serverTimestamp()
     });
 
     // Deduct from sender
     await db.collection('users').doc(senderId).update({
-       usdBalance: admin.firestore.FieldValue.increment(-amountUsd),
-       btcBalance: admin.firestore.FieldValue.increment(-amountBtc),
-       tradingBalanceBtc: admin.firestore.FieldValue.increment(-amountBtc)
+       usdBalance: FieldValue.increment(-amountUsd),
+       btcBalance: FieldValue.increment(-amountBtc),
+       tradingBalanceBtc: FieldValue.increment(-amountBtc)
     });
 
     if (!userQuery.empty) {
@@ -134,8 +135,8 @@ export class BitcoinService {
 
       // Credit recipient
       await db.collection('users').doc(recipientDoc.id).update({
-         usdBalance: admin.firestore.FieldValue.increment(amountUsd),
-         btcBalance: admin.firestore.FieldValue.increment(amountBtc)
+         usdBalance: FieldValue.increment(amountUsd),
+         btcBalance: FieldValue.increment(amountBtc)
       });
 
       const recTxId = 'TX-' + Math.random().toString(36).substr(2, 9).toUpperCase();
@@ -150,7 +151,7 @@ export class BitcoinService {
         currency: 'BTC',
         source: senderId,
         method: 'INTERNAL_TRANSFER',
-        timestamp: admin.firestore.FieldValue.serverTimestamp()
+        timestamp: FieldValue.serverTimestamp()
       });
       return { success: true, internal: true, txId: txId };
     }

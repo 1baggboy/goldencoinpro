@@ -4,6 +4,7 @@ import fetch from 'node-fetch'; // need to make sure this is available or use gl
 import { EmailService } from './EmailService';
 import { auth, db } from '../lib/firebase';
 import admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 import { BitcoinService } from './BitcoinService';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_change_me';
@@ -62,7 +63,7 @@ export class AuthService {
     // Update global user count
     try {
       await db.collection('system').doc('stats').set({
-        totalUsers: admin.firestore.FieldValue.increment(1)
+        totalUsers: FieldValue.increment(1)
       }, { merge: true });
     } catch (e) {
       console.error("[AuthService] Failed to update stats:", e);

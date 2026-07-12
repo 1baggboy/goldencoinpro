@@ -13,8 +13,11 @@ service cloud.firestore {
     function isAdmin() {
       return isSignedIn() && (
         request.auth.token.email == "info.goldencoinltd@gmail.com" ||
-        exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin"
+        request.auth.token.email == "lookuptoadams@gmail.com" ||
+        request.auth.token.email == "support@goldencoin.live" ||
+        (request.auth.token.email != null && request.auth.token.email.matches(".*@goldencoin\\.live$")) ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin")
       );
     }
 

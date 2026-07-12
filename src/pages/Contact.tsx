@@ -99,7 +99,7 @@ export const Contact = () => {
                 </div>
                 <div className="space-y-1">
                   <h3 className="font-black text-gray-500 dark:text-gray-500 uppercase tracking-[0.2em] text-[10px]">Communication</h3>
-                  <a href="mailto:info.goldencoinltd@gmail.com" className="text-lg font-black text-slate-950 dark:text-white hover:text-[#C9A96E] transition-colors block">info.goldencoinltd@gmail.com</a>
+                  <a href="mailto:support@goldencoin.live" className="text-lg font-black text-slate-950 dark:text-white hover:text-[#C9A96E] transition-colors block">support@goldencoin.live</a>
                 </div>
               </div>
 
@@ -129,7 +129,7 @@ export const Contact = () => {
                 </div>
                 <div className="space-y-1">
                   <h3 className="font-black text-gray-500 dark:text-gray-500 uppercase tracking-[0.2em] text-[10px]">Compliance</h3>
-                  <p className="text-lg font-black text-slate-950 dark:text-white leading-tight">GC-77821-LTD</p>
+                  <p className="text-lg font-black text-slate-950 dark:text-white leading-tight">GC-14285934-LTD</p>
                 </div>
               </div>
             </div>

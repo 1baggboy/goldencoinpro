@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 import { EmailService } from './EmailService';
 import { db, messaging } from '../lib/firebase';
 
@@ -50,9 +51,9 @@ export class TransactionService {
     const amountBtc = amount / btcPrice;
     
     await userDocRef.update({ 
-      usdBalance: admin.firestore.FieldValue.increment(-amount),
-      btcBalance: admin.firestore.FieldValue.increment(-amountBtc),
-      tradingBalanceBtc: admin.firestore.FieldValue.increment(-amountBtc)
+      usdBalance: FieldValue.increment(-amount),
+      btcBalance: FieldValue.increment(-amountBtc),
+      tradingBalanceBtc: FieldValue.increment(-amountBtc)
     });
 
     const reference = `WTH-${uuidv4().substring(0, 8).toUpperCase()}`;
@@ -107,11 +108,11 @@ export class TransactionService {
       const amountBtc = tx.amountBtc || (amountUsd / 67000); 
 
       await userRef.update({ 
-        usdBalance: admin.firestore.FieldValue.increment(amountUsd),
-        totalDepositedUsd: admin.firestore.FieldValue.increment(amountUsd),
-        btcBalance: admin.firestore.FieldValue.increment(amountBtc),
-        tradingBalanceBtc: admin.firestore.FieldValue.increment(amountBtc),
-        totalDeposited: admin.firestore.FieldValue.increment(amountBtc)
+        usdBalance: FieldValue.increment(amountUsd),
+        totalDepositedUsd: FieldValue.increment(amountUsd),
+        btcBalance: FieldValue.increment(amountBtc),
+        tradingBalanceBtc: FieldValue.increment(amountBtc),
+        totalDeposited: FieldValue.increment(amountBtc)
       });
     }
     // Withdrawal balance already deducted at request time
@@ -154,7 +155,7 @@ export class TransactionService {
           });
           if (invalidTokens.length > 0) {
             await userRef.update({
-              fcmTokens: admin.firestore.FieldValue.arrayRemove(...invalidTokens)
+              fcmTokens: FieldValue.arrayRemove(...invalidTokens)
             });
             console.log(`[FCM] Cleaned up ${invalidTokens.length} expired or invalid tokens`);
           }
@@ -197,9 +198,9 @@ export class TransactionService {
       const amountBtc = tx.amountBtc || 0;
       const amountUsd = tx.amountUsd || tx.amount || 0;
       await userRef.update({ 
-        btcBalance: admin.firestore.FieldValue.increment(amountBtc),
-        tradingBalanceBtc: admin.firestore.FieldValue.increment(amountBtc),
-        usdBalance: admin.firestore.FieldValue.increment(amountUsd)
+        btcBalance: FieldValue.increment(amountBtc),
+        tradingBalanceBtc: FieldValue.increment(amountBtc),
+        usdBalance: FieldValue.increment(amountUsd)
       });
     }
 

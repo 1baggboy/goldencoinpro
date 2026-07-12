@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { auth as adminAuth } from '../lib/firebase';
+import { auth as adminAuth, db } from '../lib/firebase';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_change_me';
 
@@ -32,10 +32,34 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
       if (adminAuth) {
         try {
           const firebaseUser = await adminAuth.verifyIdToken(token);
-          const isAdmin = firebaseUser.email === 'lookuptoadams@gmail.com' || firebaseUser.email === 'info.goldencoinltd@gmail.com';
+          let role = 'USER';
+          
+          if (db) {
+            try {
+              const userDoc = await db.collection('users').doc(firebaseUser.uid).get();
+              if (userDoc.exists) {
+                const userData = userDoc.data();
+                if (userData && (userData.role === 'admin' || userData.role === 'ADMIN')) {
+                  role = 'ADMIN';
+                }
+              }
+            } catch (dbErr) {
+              console.warn('[Auth] Failed to fetch user role from DB:', dbErr);
+            }
+          }
+          
+          if (role !== 'ADMIN') {
+            const isAdminEmail = 
+              firebaseUser.email === 'lookuptoadams@gmail.com' || 
+              firebaseUser.email === 'info.goldencoinltd@gmail.com' || 
+              firebaseUser.email === 'support@goldencoin.live' ||
+              firebaseUser.email?.endsWith('@goldencoin.live');
+            role = isAdminEmail ? 'ADMIN' : 'USER';
+          }
+
           req.user = {
             userId: firebaseUser.uid,
-            role: isAdmin ? 'ADMIN' : 'USER',
+            role,
             email: firebaseUser.email || ''
           };
           return next();
