@@ -57,15 +57,19 @@ export class EmailService {
   }
 
   static async sendEmail(options: EmailOptions) {
+    const { to, subject, html, from, type } = options;
+    const sender = from || this.getFromAddress("noreply");
+    
     const client = getResendClient();
     if (!client) {
       const errorMsg = "[EmailService]: Resend client not initialized. Check RESEND_API_KEY.";
       console.error(errorMsg);
-      throw new Error(errorMsg);
+      if (type === 'OTP' || type === 'PASSWORD_RESET') {
+        throw new Error(errorMsg);
+      }
+      console.warn(`[EmailService Warning]: Failed to send ${type} email because Resend client is not initialized, but proceeding without throwing.`);
+      return { success: false, error: errorMsg };
     }
-
-    const { to, subject, html, from, type } = options;
-    const sender = from || this.getFromAddress("noreply");
 
     console.log(`[EmailService]: Attempting to send ${type} email to ${to} from ${sender}...`);
 
@@ -122,7 +126,11 @@ export class EmailService {
           });
         } catch (dbErr: any) {}
       }
-      throw err;
+      if (type === 'OTP' || type === 'PASSWORD_RESET') {
+        throw err;
+      }
+      console.warn(`[EmailService Warning]: Failed to send ${type} email, but proceeding without throwing error:`, err.message || err);
+      return { success: false, error: err.message || String(err) };
     }
   }
 

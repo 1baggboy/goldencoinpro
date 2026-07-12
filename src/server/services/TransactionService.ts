@@ -84,7 +84,8 @@ export class TransactionService {
     if (!txDoc.exists) throw new Error("Transaction not found");
     const tx = txDoc.data() as any;
 
-    if (tx.status !== 'PENDING') throw new Error("Transaction already processed");
+    const currentStatus = (tx.status || '').toUpperCase();
+    if (currentStatus !== 'PENDING') throw new Error("Transaction already processed");
 
     await txRef.update({ 
       status: 'SUCCESS',
@@ -98,7 +99,8 @@ export class TransactionService {
     if (!userDoc.exists) throw new Error("User not found");
     const user = { ...userDoc.data(), id: tx.userId } as any;
 
-    if (tx.type === 'DEPOSIT') {
+    const txTypeUpper = (tx.type || '').toUpperCase();
+    if (txTypeUpper === 'DEPOSIT') {
       const amountUsd = tx.amountUsd || tx.amount || 0;
       // If amountBtc is missing, try to calculate it based on a reasonable fallback price if possible
       // but primarily rely on tx.amountBtc if it was provided at creation (e.g., in Deposit.tsx)
@@ -173,7 +175,8 @@ export class TransactionService {
     if (!txDoc.exists) throw new Error("Transaction not found");
     const tx = txDoc.data() as any;
 
-    if (tx.status !== 'PENDING') throw new Error("Transaction already processed");
+    const currentStatus = (tx.status || '').toUpperCase();
+    if (currentStatus !== 'PENDING') throw new Error("Transaction already processed");
 
     await txRef.update({ 
       status: 'REJECTED',
@@ -185,9 +188,11 @@ export class TransactionService {
 
     const userRef = db.collection('users').doc(tx.userId);
     const userDoc = await userRef.get();
+    if (!userDoc.exists) throw new Error("User not found");
     const user = { ...userDoc.data(), id: tx.userId } as any;
 
-    if (tx.type === 'WITHDRAWAL') {
+    const txTypeUpper = (tx.type || '').toUpperCase();
+    if (txTypeUpper === 'WITHDRAWAL') {
       // Refund balance
       const amountBtc = tx.amountBtc || 0;
       const amountUsd = tx.amountUsd || tx.amount || 0;
