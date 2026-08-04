@@ -535,7 +535,7 @@ export const AdminDashboard = () => {
           <ShieldCheck size={28} />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Admin Control Panel</h1>
+          <h1 className="text-3xl font-bold text-slate-950 dark:text-white tracking-tight">Admin Control Panel</h1>
           <p className="text-gray-400">Manage users, deposits, and KYC verifications.</p>
         </div>
         <div className="ml-auto flex items-center gap-4 relative z-10">
@@ -550,7 +550,7 @@ export const AdminDashboard = () => {
             onClick={() => setShowResetConfirmDialog(true)}
             disabled={isResetting}
             style={{ pointerEvents: 'auto', cursor: 'pointer' }}
-            className="px-4 py-2 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl text-sm font-bold hover:bg-red-500 hover:text-white transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg active:scale-95"
+            className="px-4 py-2 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl text-sm font-bold hover:bg-red-500 hover:text-slate-950 dark:hover:text-white transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg active:scale-95"
           >
             <ShieldAlert size={18} />
             {isResetting ? "Resetting..." : "Reset System Data"}
@@ -583,15 +583,15 @@ export const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
         {/* Pending Deposits */}
-        <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+        <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
+          <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-6 flex items-center gap-2">
             <ArrowDownCircle size={20} className="text-yellow-500" />
             Pending Deposits
           </h3>
           <div className="space-y-4">
             {pendingDeposits.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="w-16 h-16 bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
+                <div className="w-16 h-16 bg-white dark:bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
                   <Inbox size={32} />
                 </div>
                 <p className="text-sm text-gray-500">No pending deposits.</p>
@@ -603,10 +603,10 @@ export const AdminDashboard = () => {
                   <div 
                     key={tx.id} 
                     onClick={() => navigate(`/admin/user/${tx.userId}`)}
-                    className="p-4 bg-slate-950 border border-[#C9A96E]/10 rounded-xl flex items-center justify-between group hover:border-[#C9A96E]/30 transition-all cursor-pointer"
+                    className="p-4 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl flex items-center justify-between group hover:border-[#C9A96E]/30 transition-all cursor-pointer"
                   >
                     <div className="flex-1">
-                      <p className="text-sm font-bold text-white group-hover:text-[#C9A96E] transition-colors">{tx.amountBtc || tx.amount} BTC</p>
+                      <p className="text-sm font-bold text-slate-950 dark:text-white group-hover:text-[#C9A96E] transition-colors">{tx.amountBtc || tx.amount} BTC</p>
                       <p className="text-[10px] text-gray-500 mt-1">From: <span className="text-gray-300 font-medium">{txUser?.displayName || tx.userId.slice(0, 8) + '...'}</span></p>
                     </div>
                     <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
@@ -635,15 +635,15 @@ export const AdminDashboard = () => {
         </div>
 
         {/* Pending Withdrawals */}
-        <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+        <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
+          <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-6 flex items-center gap-2">
             <ArrowUpCircle size={20} className="text-red-500" />
             Pending Withdrawals
           </h3>
           <div className="space-y-4">
             {pendingWithdrawals.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="w-16 h-16 bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
+                <div className="w-16 h-16 bg-white dark:bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
                   <Inbox size={32} />
                 </div>
                 <p className="text-sm text-gray-500">No pending withdrawals.</p>
@@ -655,10 +655,10 @@ export const AdminDashboard = () => {
                   <div 
                     key={tx.id} 
                     onClick={() => navigate(`/admin/user/${tx.userId}`)}
-                    className="p-4 bg-slate-950 border border-[#C9A96E]/10 rounded-xl flex items-center justify-between group hover:border-[#C9A96E]/30 transition-all cursor-pointer"
+                    className="p-4 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl flex items-center justify-between group hover:border-[#C9A96E]/30 transition-all cursor-pointer"
                   >
                     <div className="flex-1">
-                      <p className="text-sm font-bold text-white group-hover:text-[#C9A96E] transition-colors">{tx.amountBtc || tx.amount} BTC</p>
+                      <p className="text-sm font-bold text-slate-950 dark:text-white group-hover:text-[#C9A96E] transition-colors">{tx.amountBtc || tx.amount} BTC</p>
                       <p className="text-[10px] text-gray-500 mt-1">User: <span className="text-gray-300 font-medium">{txUser?.displayName || tx.userId.slice(0, 8) + '...'}</span></p>
                       <p className="text-[10px] text-gray-500">Address: {tx.walletAddress?.slice(0, 12)}...</p>
                     </div>
@@ -690,24 +690,24 @@ export const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
         {/* Pending KYC */}
-        <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+        <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
+          <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-6 flex items-center gap-2">
             <ShieldCheck size={20} className="text-blue-500" />
             Pending KYC
           </h3>
           <div className="space-y-4">
             {pendingKyc.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="w-16 h-16 bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
+                <div className="w-16 h-16 bg-white dark:bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
                   <ShieldCheck size={32} />
                 </div>
                 <p className="text-sm text-gray-500">No pending KYC requests.</p>
               </div>
             ) : (
               pendingKyc.map(kyc => (
-                <div key={kyc.id} className="p-4 bg-slate-950 border border-[#C9A96E]/10 rounded-xl flex items-center justify-between group">
+                <div key={kyc.id} className="p-4 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl flex items-center justify-between group">
                   <div>
-                    <p className="text-sm font-bold text-white">{kyc.fullName}</p>
+                    <p className="text-sm font-bold text-slate-950 dark:text-white">{kyc.fullName}</p>
                     <p className="text-xs text-gray-500 mt-1 capitalize">{kyc.idType?.replace('_', ' ')}: {kyc.idNumber}</p>
                   </div>
                   <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -746,13 +746,13 @@ export const AdminDashboard = () => {
       {/* KYC Details Modal */}
       {selectedKyc && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-[#C9A96E]/20 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/20 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl">
             <div className="p-6 border-b border-[#C9A96E]/10 flex items-center justify-between">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-950 dark:text-white flex items-center gap-2">
                 <ShieldCheck className="text-blue-500" />
                 KYC Verification Details
               </h3>
-              <button onClick={() => setSelectedKyc(null)} className="text-gray-500 hover:text-white">
+              <button onClick={() => setSelectedKyc(null)} className="text-gray-500 hover:text-slate-950 dark:hover:text-white">
                 <X size={24} />
               </button>
             </div>
@@ -761,26 +761,26 @@ export const AdminDashboard = () => {
                 <div className="space-y-4">
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Full Name</p>
-                    <p className="text-lg font-bold text-white">{selectedKyc.fullName}</p>
+                    <p className="text-lg font-bold text-slate-950 dark:text-white">{selectedKyc.fullName}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">ID Type</p>
-                    <p className="text-white capitalize">{selectedKyc.idType?.replace('_', ' ')}</p>
+                    <p className="text-slate-950 dark:text-white capitalize">{selectedKyc.idType?.replace('_', ' ')}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">ID Number</p>
-                    <p className="text-white font-mono">{selectedKyc.idNumber}</p>
+                    <p className="text-slate-950 dark:text-white font-mono">{selectedKyc.idNumber}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Submitted At</p>
-                    <p className="text-white">{format(new Date(selectedKyc.submittedAt), "MMM dd, yyyy HH:mm")}</p>
+                    <p className="text-slate-950 dark:text-white">{format(new Date(selectedKyc.submittedAt), "MMM dd, yyyy HH:mm")}</p>
                   </div>
                 </div>
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 gap-6">
-                    <div className="p-4 bg-slate-950 border border-[#C9A96E]/10 rounded-xl">
+                    <div className="p-4 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl">
                       <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-3">ID Front</p>
-                      <div className="aspect-video bg-slate-900 rounded-lg overflow-hidden border border-[#C9A96E]/5 cursor-pointer" onClick={() => window.open(selectedKyc.idImageFront || selectedKyc.idImage)}>
+                      <div className="aspect-video bg-slate-50 dark:bg-slate-900 rounded-lg overflow-hidden border border-[#C9A96E]/5 cursor-pointer" onClick={() => window.open(selectedKyc.idImageFront || selectedKyc.idImage)}>
                         {(selectedKyc.idImageFront || selectedKyc.idImage) ? (
                           <img src={selectedKyc.idImageFront || selectedKyc.idImage} alt="ID Front" className="w-full h-full object-contain" />
                         ) : (
@@ -788,9 +788,9 @@ export const AdminDashboard = () => {
                         )}
                       </div>
                     </div>
-                    <div className="p-4 bg-slate-950 border border-[#C9A96E]/10 rounded-xl">
+                    <div className="p-4 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl">
                       <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-3">ID Back</p>
-                      <div className="aspect-video bg-slate-900 rounded-lg overflow-hidden border border-[#C9A96E]/5 cursor-pointer" onClick={() => window.open(selectedKyc.idImageBack)}>
+                      <div className="aspect-video bg-slate-50 dark:bg-slate-900 rounded-lg overflow-hidden border border-[#C9A96E]/5 cursor-pointer" onClick={() => window.open(selectedKyc.idImageBack)}>
                         {selectedKyc.idImageBack ? (
                           <img src={selectedKyc.idImageBack} alt="ID Back" className="w-full h-full object-contain" />
                         ) : (
@@ -798,9 +798,9 @@ export const AdminDashboard = () => {
                         )}
                       </div>
                     </div>
-                    <div className="p-4 bg-slate-950 border border-[#C9A96E]/10 rounded-xl">
+                    <div className="p-4 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl">
                       <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-3">Selfie + ID</p>
-                      <div className="aspect-video bg-slate-900 rounded-lg overflow-hidden border border-[#C9A96E]/5 cursor-pointer" onClick={() => window.open(selectedKyc.selfieWithId)}>
+                      <div className="aspect-video bg-slate-50 dark:bg-slate-900 rounded-lg overflow-hidden border border-[#C9A96E]/5 cursor-pointer" onClick={() => window.open(selectedKyc.selfieWithId)}>
                         {selectedKyc.selfieWithId ? (
                           <img src={selectedKyc.selfieWithId} alt="Selfie" className="w-full h-full object-contain" />
                         ) : (
@@ -812,7 +812,7 @@ export const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="p-6 bg-slate-950 border-t border-[#C9A96E]/10 flex gap-4">
+            <div className="p-6 bg-white dark:bg-slate-950 border-t border-[#C9A96E]/10 flex gap-4">
               <button 
                 onClick={() => approveKyc(selectedKyc)}
                 className="flex-1 py-4 bg-green-500 text-[#0B0B0B] font-bold rounded-xl hover:bg-green-600 transition-all flex items-center justify-center gap-2"
@@ -835,18 +835,18 @@ export const AdminDashboard = () => {
       {/* Transaction Details Modal */}
       {selectedTx && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-[#C9A96E]/20 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/20 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl">
             <div className="p-6 border-b border-[#C9A96E]/10 flex items-center justify-between">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-950 dark:text-white flex items-center gap-2">
                 {selectedTx.type === 'deposit' ? <ArrowDownCircle className="text-yellow-500" /> : <ArrowUpCircle className="text-red-500" />}
                 {selectedTx.type === 'deposit' ? 'Deposit' : 'Withdrawal'} Details
               </h3>
-              <button onClick={() => setSelectedTx(null)} className="text-gray-500 hover:text-white">
+              <button onClick={() => setSelectedTx(null)} className="text-gray-500 hover:text-slate-950 dark:hover:text-white">
                 <X size={24} />
               </button>
             </div>
             <div className="p-8 space-y-6">
-              <div className="flex justify-between items-center p-4 bg-slate-950 border border-[#C9A96E]/10 rounded-2xl">
+              <div className="flex justify-between items-center p-4 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-2xl">
                 <div className="space-y-4 flex-1">
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Amount (BTC)</p>
@@ -854,7 +854,7 @@ export const AdminDashboard = () => {
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Amount (USD)</p>
-                    <p className="text-xl font-bold text-white">${(selectedTx.amountUsd || 0).toLocaleString()}</p>
+                    <p className="text-xl font-bold text-slate-950 dark:text-white">${(selectedTx.amountUsd || 0).toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -869,17 +869,17 @@ export const AdminDashboard = () => {
                 {selectedTx.type === 'deposit' ? (
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Transaction Hash (TXID)</p>
-                    <p className="text-sm text-white font-mono break-all bg-slate-950 p-3 rounded-lg border border-[#C9A96E]/5">{selectedTx.txHash}</p>
+                    <p className="text-sm text-slate-950 dark:text-white font-mono break-all bg-white dark:bg-slate-950 p-3 rounded-lg border border-[#C9A96E]/5">{selectedTx.txHash}</p>
                   </div>
                 ) : (
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Destination Wallet</p>
-                    <p className="text-sm text-white font-mono break-all bg-slate-950 p-3 rounded-lg border border-[#C9A96E]/5">{selectedTx.walletAddress}</p>
+                    <p className="text-sm text-slate-950 dark:text-white font-mono break-all bg-white dark:bg-slate-950 p-3 rounded-lg border border-[#C9A96E]/5">{selectedTx.walletAddress}</p>
                   </div>
                 )}
                 <div>
                   <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">Timestamp</p>
-                  <p className="text-sm text-white">{format(new Date(selectedTx.timestamp), "MMM dd, yyyy HH:mm:ss")}</p>
+                  <p className="text-sm text-slate-950 dark:text-white">{format(new Date(selectedTx.timestamp), "MMM dd, yyyy HH:mm:ss")}</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 uppercase font-bold tracking-widest mb-1">User ID</p>
@@ -887,7 +887,7 @@ export const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="p-6 bg-slate-950 border-t border-[#C9A96E]/10 flex gap-4">
+            <div className="p-6 bg-white dark:bg-slate-950 border-t border-[#C9A96E]/10 flex gap-4">
               <button 
                 onClick={() => { 
                   if (selectedTx.type === 'deposit') approveDeposit(selectedTx);
@@ -912,9 +912,9 @@ export const AdminDashboard = () => {
       )}
 
       {/* User Management Table */}
-      <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
+      <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
         <div className="p-6 border-b border-[#C9A96E]/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <h3 className="text-xl font-bold text-white">All Users</h3>
+          <h3 className="text-xl font-bold text-slate-950 dark:text-white">All Users</h3>
           <div className="flex flex-wrap items-center gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
@@ -923,7 +923,7 @@ export const AdminDashboard = () => {
                 placeholder="Search users..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-950 border border-[#C9A96E]/10 rounded-lg py-2 pl-10 pr-4 text-sm text-white outline-none focus:border-[#C9A96E]/40"
+                className="bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-lg py-2 pl-10 pr-4 text-sm text-slate-950 dark:text-white outline-none focus:border-[#C9A96E]/40"
               />
             </div>
             <div className="flex items-center gap-2">
@@ -931,7 +931,7 @@ export const AdminDashboard = () => {
               <select 
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="bg-slate-950 border border-[#C9A96E]/10 rounded-lg py-2 px-3 text-xs text-gray-400 outline-none focus:border-[#C9A96E]/40"
+                className="bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-lg py-2 px-3 text-xs text-gray-400 outline-none focus:border-[#C9A96E]/40"
               >
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
@@ -940,7 +940,7 @@ export const AdminDashboard = () => {
               <select 
                 value={filterKyc}
                 onChange={(e) => setFilterKyc(e.target.value)}
-                className="bg-slate-950 border border-[#C9A96E]/10 rounded-lg py-2 px-3 text-xs text-gray-400 outline-none focus:border-[#C9A96E]/40"
+                className="bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-lg py-2 px-3 text-xs text-gray-400 outline-none focus:border-[#C9A96E]/40"
               >
                 <option value="all">All KYC</option>
                 <option value="verified">Verified</option>
@@ -954,7 +954,7 @@ export const AdminDashboard = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-950/50 border-b border-[#C9A96E]/10">
+              <tr className="bg-white dark:bg-slate-950/50 border-b border-[#C9A96E]/10">
                 <th 
                   className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest cursor-pointer hover:text-[#C9A96E] transition-colors"
                   onClick={() => handleSort("name")}
@@ -1003,10 +1003,10 @@ export const AdminDashboard = () => {
                 <tr>
                   <td colSpan={10} className="px-6 py-20">
                     <div className="flex flex-col items-center justify-center text-center">
-                      <div className="w-20 h-20 bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
+                      <div className="w-20 h-20 bg-white dark:bg-slate-950 rounded-full flex items-center justify-center text-gray-700 mb-4">
                         <Users size={40} />
                       </div>
-                      <h4 className="text-lg font-bold text-white mb-1">No users found</h4>
+                      <h4 className="text-lg font-bold text-slate-950 dark:text-white mb-1">No users found</h4>
                       <p className="text-sm text-gray-500">Try adjusting your search or filters.</p>
                     </div>
                   </td>
@@ -1026,7 +1026,7 @@ export const AdminDashboard = () => {
                         <div>
                           <div className="flex items-center gap-2">
                             <div className={cn("w-2 h-2 rounded-full", isOnline ? "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse" : "bg-gray-400")} />
-                            <p className="text-sm font-bold text-white">{u.displayName}</p>
+                            <p className="text-sm font-bold text-slate-950 dark:text-white">{u.displayName}</p>
                           </div>
                         <p className="text-[10px] text-gray-500">{u.email}</p>
                       </div>
@@ -1072,7 +1072,7 @@ export const AdminDashboard = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-col">
-                      <span className="text-sm font-bold text-white">${(u.totalDepositedUsd || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span className="text-sm font-bold text-slate-950 dark:text-white">${(u.totalDepositedUsd || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                       <span className="text-[10px] text-gray-500 font-mono">{(u.totalDeposited || 0).toFixed(4)} BTC</span>
                     </div>
                   </td>
@@ -1140,7 +1140,7 @@ export const AdminDashboard = () => {
                           onClick={() => setActiveUserMenu(activeUserMenu === u.id ? null : u.id)}
                           className={cn(
                             "p-2 transition-colors rounded-lg",
-                            activeUserMenu === u.id ? "text-[#C9A96E] bg-[#C9A96E]/10" : "text-gray-500 hover:text-white"
+                            activeUserMenu === u.id ? "text-[#C9A96E] bg-[#C9A96E]/10" : "text-gray-500 hover:text-slate-950 dark:hover:text-white"
                           )}
                         >
                           <MoreVertical size={18} />
@@ -1158,7 +1158,7 @@ export const AdminDashboard = () => {
                                 initial={{ opacity: 0, scale: 0.95, y: -10 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                                className="absolute right-0 mt-2 w-48 bg-slate-900 border border-[#C9A96E]/20 rounded-xl shadow-2xl z-[70] overflow-hidden"
+                                className="absolute right-0 mt-2 w-48 bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/20 rounded-xl shadow-2xl z-[70] overflow-hidden"
                               >
                                 <div className="p-2 space-y-1">
                                   <button 
@@ -1233,14 +1233,14 @@ export const AdminDashboard = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-md bg-slate-900 border border-[#C9A96E]/20 rounded-3xl p-8 shadow-2xl"
+              className="relative w-full max-w-md bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/20 rounded-3xl p-8 shadow-2xl"
             >
-              <h3 className="text-2xl font-bold text-white mb-2">Reject KYC</h3>
+              <h3 className="text-2xl font-bold text-slate-950 dark:text-white mb-2">Reject KYC</h3>
               <p className="text-gray-400 text-sm mb-6">Please provide a reason for rejecting this KYC submission. The user will be notified.</p>
               
               <div className="space-y-4">
                 <select 
-                  className="w-full bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-white outline-none focus:border-[#C9A96E]/40 transition-all"
+                  className="w-full bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-slate-950 dark:text-white outline-none focus:border-[#C9A96E]/40 transition-all"
                   onChange={(e) => setRejectReason(e.target.value)}
                   defaultValue=""
                 >
@@ -1254,7 +1254,7 @@ export const AdminDashboard = () => {
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   placeholder="Or type custom reason..."
-                  className="w-full h-32 bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-white outline-none focus:border-red-500/40 transition-all resize-none"
+                  className="w-full h-32 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-slate-950 dark:text-white outline-none focus:border-red-500/40 transition-all resize-none"
                 />
                 
                 <div className="flex gap-4">
@@ -1263,14 +1263,14 @@ export const AdminDashboard = () => {
                       setShowRejectModal(false);
                       setRejectingKyc(null);
                     }}
-                    className="flex-1 py-3 bg-slate-800 text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all"
+                    className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all"
                   >
                     Cancel
                   </button>
                   <button 
                     onClick={handleRejectKyc}
                     disabled={!rejectReason.trim()}
-                    className="flex-1 py-3 bg-red-500 text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50"
+                    className="flex-1 py-3 bg-red-500 text-slate-950 dark:text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50"
                   >
                     Confirm Rejection
                   </button>
@@ -1298,9 +1298,9 @@ export const AdminDashboard = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-md bg-slate-900 border border-[#C9A96E]/20 rounded-3xl p-8 shadow-2xl"
+              className="relative w-full max-w-md bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/20 rounded-3xl p-8 shadow-2xl"
             >
-              <h3 className="text-2xl font-bold text-white mb-2">Reject {rejectingTx?.type.charAt(0).toUpperCase()}{rejectingTx?.type.slice(1)}</h3>
+              <h3 className="text-2xl font-bold text-slate-950 dark:text-white mb-2">Reject {rejectingTx?.type.charAt(0).toUpperCase()}{rejectingTx?.type.slice(1)}</h3>
               <p className="text-gray-400 text-sm mb-6">Please provide a reason for rejecting this {rejectingTx?.type}. The user will be notified.</p>
               
               <div className="space-y-4">
@@ -1308,7 +1308,7 @@ export const AdminDashboard = () => {
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   placeholder="e.g. Invalid transaction hash, insufficient funds..."
-                  className="w-full h-32 bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-white outline-none focus:border-red-500/40 transition-all resize-none"
+                  className="w-full h-32 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-slate-950 dark:text-white outline-none focus:border-red-500/40 transition-all resize-none"
                 />
                 
                 <div className="flex gap-4">
@@ -1317,14 +1317,14 @@ export const AdminDashboard = () => {
                       setShowTxRejectModal(false);
                       setRejectingTx(null);
                     }}
-                    className="flex-1 py-3 bg-slate-800 text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all"
+                    className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all"
                   >
                     Cancel
                   </button>
                   <button 
                     onClick={handleRejectTransaction}
                     disabled={!rejectReason.trim()}
-                    className="flex-1 py-3 bg-red-500 text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50"
+                    className="flex-1 py-3 bg-red-500 text-slate-950 dark:text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50"
                   >
                     Confirm Rejection
                   </button>
@@ -1350,12 +1350,12 @@ export const AdminDashboard = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-md bg-slate-900 border border-red-500/20 rounded-3xl p-8 shadow-2xl"
+              className="relative w-full max-w-md bg-slate-50 dark:bg-slate-900 border border-red-500/20 rounded-3xl p-8 shadow-2xl"
             >
               <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <ShieldAlert size={32} />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 text-center">Critical Warning</h3>
+              <h3 className="text-2xl font-bold text-slate-950 dark:text-white mb-2 text-center">Critical Warning</h3>
               <p className="text-gray-400 text-sm mb-6 text-center">
                 This will reset ALL user balances to 0 and delete ALL transactions, investments, KYC submissions, support chats, notifications and more.
                 <br /><br />
@@ -1366,14 +1366,14 @@ export const AdminDashboard = () => {
                 <button 
                   onClick={() => setShowResetConfirmDialog(false)}
                   disabled={isResetting}
-                  className="flex-1 py-3 bg-slate-800 text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all disabled:opacity-50"
+                  className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button 
                   onClick={resetSystemData}
                   disabled={isResetting}
-                  className="flex-1 py-3 bg-red-500 text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+                  className="flex-1 py-3 bg-red-500 text-slate-950 dark:text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50 flex justify-center items-center gap-2"
                 >
                   {isResetting ? "Resetting..." : "Reset System"}
                 </button>
@@ -1404,7 +1404,7 @@ const AdminStatCard = ({ title, value, icon: Icon, color, link, badge }: any) =>
           {title}
         </p>
         <div className="flex items-baseline gap-2">
-          <h4 className="text-3xl font-black text-white tracking-tight">
+          <h4 className="text-3xl font-black text-slate-950 dark:text-white tracking-tight">
             {value}
           </h4>
           {badge && (
@@ -1423,8 +1423,8 @@ const AdminStatCard = ({ title, value, icon: Icon, color, link, badge }: any) =>
   );
 
   const className = cn(
-    "bg-slate-900 border border-[#C9A96E]/10 p-6 rounded-2xl flex items-center gap-4 group transition-all duration-300",
-    "hover:border-[#C9A96E]/30 hover:bg-slate-800/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]",
+    "bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 p-6 rounded-2xl flex items-center gap-4 group transition-all duration-300",
+    "hover:border-[#C9A96E]/30 hover:bg-slate-100 dark:bg-slate-800/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]",
     "relative overflow-hidden"
   );
 

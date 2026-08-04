@@ -628,7 +628,7 @@ export const Dashboard = () => {
                   <div className="flex-1 w-full">
                       <div className="flex items-center gap-2 mb-3">
                         <h3 className="text-xl font-bold text-[#0B0B0B] dark:text-white flex items-center gap-2">
-                          Gemini AI Market Desk
+                          Algorithmic Market Desk
                         </h3>
                         <span className="bg-[#C9A96E] text-[#0B0B0B] text-[10px] font-black px-2 py-0.5 rounded-md uppercase shadow-sm">
                           Pro
@@ -686,7 +686,7 @@ export const Dashboard = () => {
                     </div>
                     <div className="lg:text-right w-full">
                       <p className="text-[9px] text-gray-500 uppercase font-black tracking-[0.3em] mb-1">
-                        AI Recommendation
+                        System Recommendation
                       </p>
                       <p className="text-sm xl:text-base font-black text-[#C9A96E] italic">
                         "{aiInsight.recommendation}"

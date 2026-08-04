@@ -27,6 +27,7 @@ export const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children
       <main className="relative">
         {/* Shared Background elements from Landing */}
         <div className="absolute inset-0 -z-10 pointer-events-none">
+          <div className="absolute inset-0 bg-slate-50 dark:bg-slate-950 transition-colors duration-500"></div>
           <div 
             className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07]"
             style={{ 
@@ -34,13 +35,14 @@ export const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children
               backgroundSize: '200px'
             }}
           ></div>
+          <div className="absolute top-0 left-0 w-full h-[60%] bg-gradient-to-b from-[#C9A96E]/10 to-transparent"></div>
           <motion.div 
             animate={{ 
               scale: [1, 1.1, 1],
-              opacity: [0.05, 0.1, 0.05]
+              opacity: [0.3, 0.5, 0.3]
             }}
-            transition={{ duration: 10, repeat: Infinity }}
-            className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#C9A96E]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4"
+            transition={{ duration: 8, repeat: Infinity }}
+            className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C9A96E]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none"
           />
         </div>
 

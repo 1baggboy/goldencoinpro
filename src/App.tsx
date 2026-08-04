@@ -165,7 +165,7 @@ function AppContent({ siteLoading, setSiteLoading }: { siteLoading: boolean, set
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold tracking-tight text-white mb-0.5">Offline Mode</p>
-                <p className="text-[11px] text-gray-400 font-medium leading-normal">Firebase connection dropped. Retrying sync with current device...</p>
+                <p className="text-[11px] text-gray-400 font-medium leading-normal">Database connection dropped. Retrying sync with current device...</p>
               </div>
               <div className="flex items-center gap-1 font-mono text-[9px] bg-red-500/10 text-red-400 border border-red-500/20 px-1.5 py-0.5 rounded shrink-0 uppercase tracking-wider">
                 <RefreshCw size={10} className="animate-spin" />

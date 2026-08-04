@@ -291,7 +291,7 @@ export const AdminSupport = () => {
             <MessageSquare size={28} />
           </div>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Support Chats</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white tracking-tight">Support Chats</h1>
             <p className="text-gray-400 text-sm">Manage user inquiries and live support.</p>
           </div>
         </div>
@@ -304,15 +304,15 @@ export const AdminSupport = () => {
               placeholder="Search users..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-900 border border-[#C9A96E]/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white outline-none focus:border-[#C9A96E]/40 transition-all font-sans"
+              className="w-full bg-white dark:bg-slate-900 border border-[#C9A96E]/10 rounded-xl py-3 pl-10 pr-4 text-sm text-slate-950 dark:text-white outline-none focus:border-[#C9A96E]/40 transition-all font-sans"
             />
           </div>
-          <div className="flex bg-slate-900 border border-[#C9A96E]/10 rounded-xl p-1 shrink-0">
+          <div className="flex bg-white dark:bg-slate-900 border border-[#C9A96E]/10 rounded-xl p-1 shrink-0">
             <button 
               onClick={() => setFilter("active")}
               className={cn(
                 "px-4 py-2 text-xs font-bold rounded-lg transition-all flex-1 sm:flex-none",
-                filter === "active" ? "bg-[#C9A96E] text-[#0B0B0B] shadow-md shadow-[#C9A96E]/10" : "text-gray-400 hover:text-white hover:bg-slate-800"
+                filter === "active" ? "bg-[#C9A96E] text-[#0B0B0B] shadow-md shadow-[#C9A96E]/10" : "text-gray-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
               )}
             >
               ACTIVE
@@ -321,7 +321,7 @@ export const AdminSupport = () => {
               onClick={() => setFilter("closed")}
               className={cn(
                 "px-4 py-2 text-xs font-bold rounded-lg transition-all flex-1 sm:flex-none",
-                filter === "closed" ? "bg-[#C9A96E] text-[#0B0B0B] shadow-md shadow-[#C9A96E]/10" : "text-gray-400 hover:text-white hover:bg-slate-800"
+                filter === "closed" ? "bg-[#C9A96E] text-[#0B0B0B] shadow-md shadow-[#C9A96E]/10" : "text-gray-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
               )}
             >
               CLOSED
@@ -334,10 +334,10 @@ export const AdminSupport = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
         {filteredChats.length === 0 ? (
           <div className="col-span-full py-20 text-center flex flex-col items-center">
-            <div className="w-20 h-20 bg-slate-900 rounded-full flex items-center justify-center text-gray-600 mb-6">
+            <div className="w-20 h-20 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center text-gray-600 mb-6">
               <MessageSquare size={40} />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">No {filter} chats found</h3>
+            <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-2">No {filter} chats found</h3>
             <p className="text-gray-500 max-w-sm mx-auto">There are currently no support conversations matching your search criteria.</p>
           </div>
         ) : (
@@ -345,7 +345,7 @@ export const AdminSupport = () => {
             <button
               key={chat.userId}
               onClick={() => handleChatSelect(chat.userId)}
-              className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 text-left hover:border-[#C9A96E]/40 hover:shadow-lg hover:shadow-[#C9A96E]/5 transition-all group flex flex-col h-full"
+              className="bg-white dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 text-left hover:border-[#C9A96E]/40 hover:shadow-lg hover:shadow-[#C9A96E]/5 transition-all group flex flex-col h-full"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -353,7 +353,7 @@ export const AdminSupport = () => {
                     <User size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white group-hover:text-[#C9A96E] transition-colors">{chat.userName || "Guest User"}</h3>
+                    <h3 className="font-bold text-slate-950 dark:text-white group-hover:text-[#C9A96E] transition-colors">{chat.userName || "Guest User"}</h3>
                     <p className="text-[10px] text-gray-500 font-mono mt-0.5">{chat.userId.slice(0, 8)}...</p>
                   </div>
                 </div>
@@ -388,7 +388,7 @@ export const AdminSupport = () => {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-4xl h-[100dvh] sm:h-[85vh] sm:max-h-[800px] flex flex-col bg-slate-900 border-x-0 sm:border border-[#C9A96E]/20 sm:rounded-3xl overflow-hidden shadow-2xl flex-shrink-0"
+              className="w-full max-w-4xl h-[100dvh] sm:h-[85vh] sm:max-h-[800px] flex flex-col bg-white dark:bg-slate-900 border-x-0 sm:border border-[#C9A96E]/20 sm:rounded-3xl overflow-hidden shadow-2xl flex-shrink-0"
             >
               {/* Modal Header */}
               <div className="px-4 sm:px-6 py-4 bg-slate-950 border-b border-[#C9A96E]/10 flex items-center justify-between shrink-0">
@@ -397,7 +397,7 @@ export const AdminSupport = () => {
                     <User size={20} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">{selectedUserDetails?.name || "Guest User"}</h3>
+                    <h3 className="font-bold text-slate-950 dark:text-white text-lg">{selectedUserDetails?.name || "Guest User"}</h3>
                     <p className="text-xs text-gray-500 font-mono">User ID: {selectedUserDetails?.friendlyId || selectedChatId}</p>
                   </div>
                 </div>
@@ -422,7 +422,7 @@ export const AdminSupport = () => {
                   )}
                   <button 
                     onClick={handleCloseChatModal}
-                    className="w-10 h-10 bg-slate-900 hover:bg-slate-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                    className="w-10 h-10 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-slate-950 dark:hover:text-white transition-colors"
                   >
                     <X size={20} />
                   </button>
@@ -449,8 +449,8 @@ export const AdminSupport = () => {
                       msg.sender === 'admin' 
                         ? "bg-[#C9A96E] text-[#0B0B0B] rounded-tr-[4px]" 
                         : msg.sender === 'system'
-                          ? "bg-slate-800/50 text-gray-400 italic text-center w-full rounded-2xl border border-[#C9A96E]/10"
-                          : "bg-slate-800 text-white border border-[#C9A96E]/10 rounded-tl-[4px]"
+                          ? "bg-slate-100 dark:bg-slate-800/50 text-gray-400 italic text-center w-full rounded-2xl border border-[#C9A96E]/10"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white border border-[#C9A96E]/10 rounded-tl-[4px]"
                     )}>
                       {msg.text}
                     </div>
@@ -499,7 +499,7 @@ export const AdminSupport = () => {
                         }
                       }}
                       placeholder="Type your reply... (Press Enter to send)"
-                      className="flex-1 bg-slate-900 border border-[#C9A96E]/20 hover:border-[#C9A96E]/40 focus:border-[#C9A96E] rounded-2xl py-4 sm:py-5 px-6 text-sm sm:text-base text-white outline-none transition-all shadow-inner resize-none min-h-[60px] max-h-[160px]"
+                      className="flex-1 bg-white dark:bg-slate-900 border border-[#C9A96E]/20 hover:border-[#C9A96E]/40 focus:border-[#C9A96E] rounded-2xl py-4 sm:py-5 px-6 text-sm sm:text-base text-slate-950 dark:text-white outline-none transition-all shadow-inner resize-none min-h-[60px] max-h-[160px]"
                       rows={1}
                     />
                     <button 

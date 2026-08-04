@@ -306,7 +306,7 @@ export const UserDetail = () => {
       <div className="flex items-center justify-between">
         <button 
           onClick={() => navigate("/admin")}
-          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-gray-400 hover:text-slate-950 dark:hover:text-white transition-colors"
         >
           <ArrowLeft size={20} />
           Back to Admin Panel
@@ -362,7 +362,7 @@ export const UserDetail = () => {
         {/* Left Column: Profile & Admin Controls */}
         <div className="lg:col-span-1 space-y-8">
           {/* User Identity Card */}
-          <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 text-center">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 text-center">
             <div className="w-20 h-20 bg-[#C9A96E]/10 rounded-3xl flex items-center justify-center text-[#C9A96E] text-3xl font-bold mx-auto mb-4 overflow-hidden">
               {userProfile.photoURL ? (
                 <img src={userProfile.photoURL} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
@@ -370,7 +370,7 @@ export const UserDetail = () => {
                 userProfile.displayName?.charAt(0)
               )}
             </div>
-            <h1 className="text-2xl font-bold text-white mb-1">{userProfile.displayName}</h1>
+            <h1 className="text-2xl font-bold text-slate-950 dark:text-white mb-1">{userProfile.displayName}</h1>
             <p className="text-sm text-gray-500 mb-4">{userProfile.email}</p>
             
             <div className="flex flex-col gap-2">
@@ -395,7 +395,7 @@ export const UserDetail = () => {
                 Last Seen: {userProfile.lastLogin ? format(new Date(userProfile.lastLogin), "MMM dd, yyyy HH:mm") : 'Never'}
               </span>
               {userProfile.plainPassword && (
-                <div className="mt-4 p-2 bg-slate-950 border border-[#C9A96E]/20 rounded-xl">
+                <div className="mt-4 p-2 bg-white dark:bg-slate-950 border border-[#C9A96E]/20 rounded-xl">
                   <p className="text-[8px] text-gray-500 uppercase font-bold tracking-widest mb-1">Stored Password</p>
                   <p className="text-xs font-mono text-[#C9A96E] break-all select-all">{userProfile.plainPassword}</p>
                 </div>
@@ -404,8 +404,8 @@ export const UserDetail = () => {
           </div>
 
           {/* Admin Edit Form */}
-          <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 space-y-6">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 space-y-6">
+            <h3 className="text-lg font-bold text-slate-950 dark:text-white flex items-center gap-2">
               <Settings size={18} className="text-[#C9A96E]" />
               Quick Edit
             </h3>
@@ -418,7 +418,7 @@ export const UserDetail = () => {
                     step="0.01"
                     value={editUsdBalance}
                     onChange={(e) => setEditUsdBalance(e.target.value)}
-                    className="w-full bg-slate-950 border border-[#C9A96E]/10 rounded-xl py-3 px-4 text-white outline-none focus:border-[#C9A96E]/40 transition-all font-mono"
+                    className="w-full bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl py-3 px-4 text-slate-950 dark:text-white outline-none focus:border-[#C9A96E]/40 transition-all font-mono"
                   />
                 </div>
 
@@ -428,7 +428,7 @@ export const UserDetail = () => {
                   type="text"
                   value={editWallet}
                   onChange={(e) => setEditWallet(e.target.value)}
-                  className="w-full bg-slate-950 border border-[#C9A96E]/10 rounded-xl py-3 px-4 text-white outline-none focus:border-[#C9A96E]/40 transition-all font-mono text-xs"
+                  className="w-full bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl py-3 px-4 text-slate-950 dark:text-white outline-none focus:border-[#C9A96E]/40 transition-all font-mono text-xs"
                   placeholder="Enter BTC address"
                 />
               </div>
@@ -445,8 +445,8 @@ export const UserDetail = () => {
           </div>
 
           {/* KYC Verification Card */}
-          <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6">
+            <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-6 flex items-center gap-2">
               <ShieldCheck size={20} className="text-[#C9A96E]" />
               KYC Verification
             </h3>
@@ -454,13 +454,13 @@ export const UserDetail = () => {
             {kycSubmission ? (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="p-4 bg-slate-950 rounded-xl border border-[#C9A96E]/5">
+                  <div className="p-4 bg-white dark:bg-slate-950 rounded-xl border border-[#C9A96E]/5">
                     <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">Full Name</p>
-                    <p className="text-sm font-bold text-white">{kycSubmission.fullName}</p>
+                    <p className="text-sm font-bold text-slate-950 dark:text-white">{kycSubmission.fullName}</p>
                   </div>
-                  <div className="p-4 bg-slate-950 rounded-xl border border-[#C9A96E]/5">
+                  <div className="p-4 bg-white dark:bg-slate-950 rounded-xl border border-[#C9A96E]/5">
                     <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">ID Type</p>
-                    <p className="text-sm font-bold text-white capitalize">{kycSubmission.idType?.replace('_', ' ')}</p>
+                    <p className="text-sm font-bold text-slate-950 dark:text-white capitalize">{kycSubmission.idType?.replace('_', ' ')}</p>
                   </div>
                 </div>
 
@@ -469,7 +469,7 @@ export const UserDetail = () => {
                     <p className="text-[10px] text-gray-500 uppercase font-bold flex items-center gap-1">
                       <FileText size={10} /> ID Document
                     </p>
-                    <div className="aspect-video bg-slate-950 rounded-xl overflow-hidden border border-[#C9A96E]/10">
+                    <div className="aspect-video bg-white dark:bg-slate-950 rounded-xl overflow-hidden border border-[#C9A96E]/10">
                       {kycSubmission.idImage ? (
                         <img src={kycSubmission.idImage} alt="ID" className="w-full h-full object-contain" />
                       ) : (
@@ -490,7 +490,7 @@ export const UserDetail = () => {
                     </button>
                     <button 
                       onClick={() => setShowRejectModal(true)}
-                      className="flex-1 bg-red-500 text-white font-bold py-3 rounded-xl hover:bg-red-400 transition-all flex items-center justify-center gap-2"
+                      className="flex-1 bg-red-500 text-slate-950 dark:text-white font-bold py-3 rounded-xl hover:bg-red-400 transition-all flex items-center justify-center gap-2"
                     >
                       <X size={18} />
                       Reject
@@ -548,9 +548,9 @@ export const UserDetail = () => {
             />
           </div>
 
-          <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 lg:p-8 mt-8">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-6 lg:p-8 mt-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-950 dark:text-white flex items-center gap-2">
                 <Clock size={20} className="text-[#C9A96E]" />
                 Recent Activity
               </h3>
@@ -604,14 +604,14 @@ export const UserDetail = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
                       key={act.id || index} 
-                      className={`p-4 bg-slate-950 border ${bdColor} rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4`}
+                      className={`p-4 bg-white dark:bg-slate-950 border ${bdColor} rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4`}
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0">
                           {icon}
                         </div>
                         <div>
-                          <p className="font-bold text-white text-sm">{title}</p>
+                          <p className="font-bold text-slate-950 dark:text-white text-sm">{title}</p>
                           <p className="text-xs text-gray-500">{desc}</p>
                         </div>
                       </div>
@@ -633,9 +633,9 @@ export const UserDetail = () => {
           </div>
 
           {/* User Investments Table */}
-          <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
             <div className="p-6 border-b border-[#C9A96E]/10">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-950 dark:text-white flex items-center gap-2">
                 <TrendingUp size={20} className="text-[#C9A96E]" />
                 Investment History
               </h3>
@@ -643,7 +643,7 @@ export const UserDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-950/50 border-b border-[#C9A96E]/10">
+                  <tr className="bg-white dark:bg-slate-950/50 border-b border-[#C9A96E]/10">
                     <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Plan</th>
                     <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Amount</th>
                     <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Expected Return</th>
@@ -659,10 +659,10 @@ export const UserDetail = () => {
                     investments.map(inv => (
                       <tr key={inv.id} className="hover:bg-[#C9A96E]/5 transition-colors">
                         <td className="px-6 py-4">
-                          <p className="text-sm font-bold text-white">{inv.planName}</p>
+                          <p className="text-sm font-bold text-slate-950 dark:text-white">{inv.planName}</p>
                           <p className="text-[10px] text-gray-500">{inv.createdAt ? format(new Date(inv.createdAt), "MMM dd, yyyy") : "---"}</p>
                         </td>
-                        <td className="px-6 py-4 text-sm text-white font-mono">{inv.amountBtc} BTC</td>
+                        <td className="px-6 py-4 text-sm text-slate-950 dark:text-white font-mono">{inv.amountBtc} BTC</td>
                         <td className="px-6 py-4 text-sm text-[#C9A96E] font-mono">{inv.expectedReturnBtc?.toFixed(4)} BTC</td>
                         <td className="px-6 py-4">
                           <span className={cn(
@@ -681,9 +681,9 @@ export const UserDetail = () => {
           </div>
 
           {/* Deposit History Table */}
-          <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
+          <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
             <div className="p-6 border-b border-[#C9A96E]/10">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-950 dark:text-white flex items-center gap-2">
                 <ArrowDownCircle size={20} className="text-green-500" />
                 Deposit History
               </h3>
@@ -691,7 +691,7 @@ export const UserDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-950/50 border-b border-[#C9A96E]/10">
+                  <tr className="bg-white dark:bg-slate-950/50 border-b border-[#C9A96E]/10">
                     <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Date</th>
                     <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Amount</th>
                     <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Status</th>
@@ -708,7 +708,7 @@ export const UserDetail = () => {
                         <td className="px-6 py-4 text-sm text-gray-400">
                           {tx.timestamp ? format(new Date(tx.timestamp), "MMM dd, yyyy HH:mm") : "---"}
                         </td>
-                        <td className="px-6 py-4 text-sm font-bold text-white font-mono">
+                        <td className="px-6 py-4 text-sm font-bold text-slate-950 dark:text-white font-mono">
                           {tx.amountBtc || tx.amount} BTC
                         </td>
                         <td className="px-6 py-4">
@@ -745,9 +745,9 @@ export const UserDetail = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-md bg-slate-900 border border-[#C9A96E]/20 rounded-3xl p-8 shadow-2xl"
+              className="relative w-full max-w-md bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/20 rounded-3xl p-8 shadow-2xl"
             >
-              <h3 className="text-2xl font-bold text-white mb-2">Reject KYC</h3>
+              <h3 className="text-2xl font-bold text-slate-950 dark:text-white mb-2">Reject KYC</h3>
               <p className="text-gray-400 text-sm mb-6">Please provide a reason for rejecting this KYC submission. The user will be notified.</p>
               
               <div className="space-y-4">
@@ -755,20 +755,20 @@ export const UserDetail = () => {
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   placeholder="e.g. ID image is blurry, document expired..."
-                  className="w-full h-32 bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-white outline-none focus:border-red-500/40 transition-all resize-none"
+                  className="w-full h-32 bg-white dark:bg-slate-950 border border-[#C9A96E]/10 rounded-xl p-4 text-slate-950 dark:text-white outline-none focus:border-red-500/40 transition-all resize-none"
                 />
                 
                 <div className="flex gap-4">
                   <button 
                     onClick={() => setShowRejectModal(false)}
-                    className="flex-1 py-3 bg-slate-800 text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all"
+                    className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white font-bold rounded-xl border border-[#C9A96E]/10 hover:bg-slate-700 transition-all"
                   >
                     Cancel
                   </button>
                   <button 
                     onClick={handleRejectKyc}
                     disabled={rejecting || !rejectReason.trim()}
-                    className="flex-1 py-3 bg-red-500 text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50"
+                    className="flex-1 py-3 bg-red-500 text-slate-950 dark:text-white font-bold rounded-xl hover:bg-red-400 transition-all disabled:opacity-50"
                   >
                     {rejecting ? "Rejecting..." : "Confirm Rejection"}
                   </button>
@@ -789,12 +789,12 @@ export const UserDetail = () => {
             <motion.div 
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="relative w-full max-w-md bg-slate-900 border border-orange-500/20 rounded-3xl p-8 shadow-2xl"
+              className="relative w-full max-w-md bg-slate-50 dark:bg-slate-900 border border-orange-500/20 rounded-3xl p-8 shadow-2xl"
             >
               <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center text-orange-500 mb-6 mx-auto">
                 <ShieldQuestion size={32} />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 text-center">Reset User Data?</h3>
+              <h3 className="text-2xl font-bold text-slate-950 dark:text-white mb-2 text-center">Reset User Data?</h3>
               <p className="text-gray-400 text-sm mb-8 text-center">
                 This will permanently delete ALL transactions and investments for this user. This action will also reset their daily withdrawal limits.
               </p>
@@ -803,14 +803,14 @@ export const UserDetail = () => {
                 <button 
                   onClick={() => setShowResetConfirm(false)}
                   disabled={resetting}
-                  className="flex-1 py-4 bg-slate-800 text-white font-bold rounded-xl border border-white/10 hover:bg-slate-700 transition-all disabled:opacity-50"
+                  className="flex-1 py-4 bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white font-bold rounded-xl border border-white/10 hover:bg-slate-700 transition-all disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button 
                   onClick={handleResetUserData}
                   disabled={resetting}
-                  className="flex-1 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 py-4 bg-orange-500 text-slate-950 dark:text-white font-bold rounded-xl hover:bg-orange-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {resetting ? "Resetting..." : "Confirm Reset"}
                 </button>
@@ -824,11 +824,11 @@ export const UserDetail = () => {
 };
 
 const StatCard = ({ title, value, subValue, icon: Icon, color }: any) => (
-  <div className="bg-slate-900 border border-[#C9A96E]/10 p-6 rounded-2xl">
+  <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 p-6 rounded-2xl">
     <div className="flex items-center justify-between">
       <div>
         <p className="text-xs text-gray-500 font-bold uppercase tracking-widest mb-1">{title}</p>
-        <h4 className="text-2xl font-bold text-white tracking-tight">{value}</h4>
+        <h4 className="text-2xl font-bold text-slate-950 dark:text-white tracking-tight">{value}</h4>
         <p className={cn("text-xs mt-1", color === 'green' ? "text-green-500" : "text-gray-400")}>
           {subValue}
         </p>

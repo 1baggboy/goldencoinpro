@@ -28,7 +28,7 @@ export const AdminAuditLogs: React.FC = () => {
   return (
     <div className="p-8 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-slate-950 dark:text-white flex items-center gap-3">
           <ShieldAlert className="text-red-500" />
           Admin Audit Logs
         </h1>
@@ -39,15 +39,15 @@ export const AdminAuditLogs: React.FC = () => {
             placeholder="Search logs..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-slate-900 border border-[#C9A96E]/20 rounded-lg py-2 pl-10 pr-4 text-sm text-white outline-none focus:border-[#C9A96E]/40"
+            className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/20 rounded-lg py-2 pl-10 pr-4 text-sm text-slate-950 dark:text-white outline-none focus:border-[#C9A96E]/40"
           />
         </div>
       </div>
       
-      <div className="bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
+      <div className="bg-slate-50 dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl overflow-hidden">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-950 border-b border-[#C9A96E]/10">
+            <tr className="bg-white dark:bg-slate-950 border-b border-[#C9A96E]/10">
               <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Timestamp</th>
               <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Admin</th>
               <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Action</th>

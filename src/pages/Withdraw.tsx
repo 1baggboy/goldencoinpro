@@ -110,7 +110,7 @@ export const Withdraw = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'Authorization': `Bearer ${await user?.getIdToken()}`
         },
         body: JSON.stringify({
           toAddress: walletAddress,
@@ -191,7 +191,7 @@ export const Withdraw = () => {
             <Sparkles size={20} className="group-hover:rotate-12 transition-transform" />
           </div>
           <div>
-            <p className="text-xs font-black text-[#C9A96E] uppercase tracking-widest">AI Withdrawal Guide</p>
+            <p className="text-xs font-black text-[#C9A96E] uppercase tracking-widest">Smart Withdrawal Guide</p>
             <p className="text-sm text-gray-300">Min $50. Batch processing runs daily at 12:00 UTC. Ensure your 2FA is active for secure release.</p>
           </div>
         </div>
@@ -203,7 +203,7 @@ export const Withdraw = () => {
           className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-all border border-white/5"
         >
           <HelpCircle size={16} />
-          <span className="text-xs font-bold uppercase tracking-tight">Ask AI Support</span>
+          <span className="text-xs font-bold uppercase tracking-tight">Ask Support</span>
         </button>
       </motion.div>
 

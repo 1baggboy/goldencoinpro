@@ -168,7 +168,7 @@ export const Transactions = () => {
         <div className="flex gap-3">
           <button 
             onClick={async () => {
-              const response = await fetch('/api/transactions/export', { method: 'POST', headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } });
+              const response = await fetch('/api/transactions/export', { method: 'POST', headers: { 'Authorization': `Bearer ${await user?.getIdToken()}` } });
               if (response.ok) {
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);

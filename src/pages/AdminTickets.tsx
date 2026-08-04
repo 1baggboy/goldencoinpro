@@ -131,7 +131,7 @@ export const AdminTickets = () => {
   });
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 w-full space-y-8 bg-[#0B0B0B] min-h-screen text-white">
+    <div className="p-4 sm:p-6 lg:p-8 w-full space-y-8">
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
@@ -152,17 +152,17 @@ export const AdminTickets = () => {
               placeholder="Search tickets, IDs..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#111111] border border-[#C9A96E]/10 rounded-xl py-3 pl-10 pr-4 text-xs outline-none focus:border-[#C9A96E]/50 transition-all font-mono"
+              className="w-full bg-white dark:bg-slate-900 border border-[#C9A96E]/10 rounded-xl py-3 pl-10 pr-4 text-xs outline-none focus:border-[#C9A96E]/50 transition-all font-mono"
             />
           </div>
-          <div className="flex bg-[#111111] border border-[#C9A96E]/10 rounded-xl p-1 shrink-0 w-full sm:w-auto">
+          <div className="flex bg-white dark:bg-slate-900 border border-[#C9A96E]/10 rounded-xl p-1 shrink-0 w-full sm:w-auto">
             {['all', 'open', 'pending', 'resolved'].map(status => (
               <button 
                 key={status}
                 onClick={() => setStatusFilter(status)}
                 className={cn(
                   "px-4 py-2 text-[10px] font-bold rounded-lg transition-all flex-1 sm:flex-none uppercase tracking-widest",
-                  statusFilter === status ? "bg-[#C9A96E] text-[#0B0B0B]" : "text-gray-400 hover:text-white"
+                  statusFilter === status ? "bg-[#C9A96E] text-[#0B0B0B]" : "text-gray-400 hover:text-slate-950 dark:hover:text-white"
                 )}
               >
                 {status}
@@ -185,7 +185,7 @@ export const AdminTickets = () => {
                 key={ticket.id}
                 onClick={() => setSelectedTicket(ticket)}
                 className={cn(
-                  "w-full bg-[#111111] border border-[#C9A96E]/10 rounded-2xl p-5 text-left transition-all hover:bg-[#C9A96E]/5 group relative",
+                  "w-full bg-white dark:bg-slate-900 border border-[#C9A96E]/10 rounded-2xl p-5 text-left transition-all hover:bg-[#C9A96E]/5 group relative",
                   selectedTicket?.id === ticket.id ? "border-[#C9A96E]/50 ring-1 ring-[#C9A96E]/50 bg-[#C9A96E]/10" : ""
                 )}
               >
@@ -206,7 +206,7 @@ export const AdminTickets = () => {
                   </div>
                 </div>
                 
-                <h3 className="font-bold text-white mb-2 line-clamp-1 group-hover:text-[#C9A96E] transition-colors">{ticket.subject}</h3>
+                <h3 className="font-bold text-slate-950 dark:text-white mb-2 line-clamp-1 group-hover:text-[#C9A96E] transition-colors">{ticket.subject}</h3>
                 <div className="flex items-center gap-2 text-xs text-gray-400 mb-4">
                   <User size={12} className="text-[#C9A96E]" />
                   {ticket.userName}
@@ -222,7 +222,7 @@ export const AdminTickets = () => {
             ))}
 
             {filteredTickets.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-20 text-center bg-[#111111] rounded-3xl border border-[#C9A96E]/5">
+              <div className="flex flex-col items-center justify-center py-20 text-center bg-white dark:bg-slate-900 rounded-3xl border border-[#C9A96E]/5">
                 <Inbox size={48} className="text-gray-700 mb-4" />
                 <p className="text-gray-500 text-sm">No tickets found.</p>
               </div>
@@ -238,16 +238,16 @@ export const AdminTickets = () => {
                 key={selectedTicket.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-[#111111] border border-[#C9A96E]/20 rounded-3xl overflow-hidden flex flex-col h-[75vh]"
+                className="bg-white dark:bg-slate-900 border border-[#C9A96E]/20 rounded-3xl overflow-hidden flex flex-col h-[75vh]"
               >
                 {/* Chat Header */}
-                <div className="px-6 py-5 bg-[#0B0B0B] border-b border-[#C9A96E]/10 flex items-center justify-between">
+                <div className="px-6 py-5 bg-slate-50 dark:bg-slate-950 border-b border-[#C9A96E]/10 flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-[#C9A96E]/10 rounded-xl flex items-center justify-center text-[#C9A96E]">
                       <User size={20} />
                     </div>
                     <div>
-                      <h3 className="font-bold text-white">{selectedTicket.userName}</h3>
+                      <h3 className="font-bold text-slate-950 dark:text-white">{selectedTicket.userName}</h3>
                       <p className="text-xs text-gray-500 font-mono italic">{selectedTicket.userEmail}</p>
                     </div>
                   </div>
@@ -263,7 +263,7 @@ export const AdminTickets = () => {
                     )}
                     <button 
                       onClick={() => setSelectedTicket(null)}
-                      className="w-10 h-10 bg-[#111111] hover:bg-slate-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-[#C9A96E]/10"
+                      className="w-10 h-10 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-slate-950 dark:hover:text-white transition-colors border border-[#C9A96E]/10"
                     >
                       <X size={20} />
                     </button>
@@ -278,7 +278,7 @@ export const AdminTickets = () => {
                   <div className="flex flex-col items-center mb-8">
                     <div className="px-6 py-3 bg-[#C9A96E]/5 border border-[#C9A96E]/10 rounded-2xl max-w-lg text-center">
                       <p className="text-[10px] font-bold text-[#C9A96E] uppercase tracking-widest mb-1">Original Request</p>
-                      <p className="text-sm font-bold text-white mb-2">{selectedTicket.subject}</p>
+                      <p className="text-sm font-bold text-slate-950 dark:text-white mb-2">{selectedTicket.subject}</p>
                       <div className="flex items-center justify-center gap-4 text-[10px] text-gray-500 font-mono">
                         <span>ID: {selectedTicket.ticketNumber}</span>
                         <span>•</span>
@@ -299,7 +299,7 @@ export const AdminTickets = () => {
                         "p-5 rounded-2xl text-sm leading-relaxed",
                         msg.isAdmin 
                           ? "bg-[#C9A96E] text-[#0B0B0B] rounded-tr-none font-medium" 
-                          : "bg-[#1A1A1A] text-white border border-[#C9A96E]/10 rounded-tl-none shadow-xl"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-950 dark:text-white border border-[#C9A96E]/10 rounded-tl-none shadow-xl"
                       )}>
                         {msg.message}
                       </div>
@@ -313,14 +313,14 @@ export const AdminTickets = () => {
 
                 {/* Reply Input */}
                 {selectedTicket.status !== 'resolved' && (
-                  <div className="p-6 bg-[#0B0B0B] border-t border-[#C9A96E]/10">
+                  <div className="p-6 bg-slate-50 dark:bg-slate-950 border-t border-[#C9A96E]/10">
                     <form onSubmit={handleSendReply} className="relative flex items-end gap-3">
                       <textarea 
                         value={newReply}
                         onChange={(e) => setNewReply(e.target.value)}
                         placeholder="Type your official reply here... Use Shift+Enter for new lines."
                         rows={3}
-                        className="flex-1 bg-[#111111] border border-[#C9A96E]/20 rounded-2xl py-4 px-6 text-sm text-white outline-none focus:border-[#C9A96E] transition-all resize-none font-sans leading-relaxed"
+                        className="flex-1 bg-white dark:bg-slate-900 border border-[#C9A96E]/20 rounded-2xl py-4 px-6 text-sm text-slate-950 dark:text-white outline-none focus:border-[#C9A96E] transition-all resize-none font-sans leading-relaxed"
                       />
                       <button 
                         type="submit"
@@ -335,8 +335,8 @@ export const AdminTickets = () => {
                 )}
               </motion.div>
             ) : (
-              <div className="h-[75vh] bg-[#111111] border border-[#C9A96E]/10 border-dashed rounded-3xl flex flex-col items-center justify-center text-center p-8">
-                 <div className="w-24 h-24 bg-[#111111] rounded-full border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E]/20 mb-8">
+              <div className="h-[75vh] bg-white dark:bg-slate-900 border border-[#C9A96E]/10 border-dashed rounded-3xl flex flex-col items-center justify-center text-center p-8">
+                 <div className="w-24 h-24 bg-white dark:bg-slate-900 rounded-full border border-[#C9A96E]/20 flex items-center justify-center text-[#C9A96E]/20 mb-8">
                     <Inbox size={48} />
                  </div>
                  <h2 className="text-2xl font-bold text-gray-500 mb-2">No Ticket Selected</h2>

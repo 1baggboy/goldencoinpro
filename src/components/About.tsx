@@ -7,18 +7,154 @@ export const About = () => {
     <LegalLayout title="About Goldencoin" icon={Info}>
       
       {/* Introduction */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-slate-950 dark:text-white flex items-center gap-3 font-display uppercase tracking-tight">
-          <div className="w-1.5 h-8 bg-[#C9A96E] rounded-full"></div>
-          Who We Are
-        </h2>
-        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-          Founded in July 2022 and headquartered in London, <strong>Goldencoin Limited</strong> is a registered cryptocurrency asset management and brokerage firm. We bridge the gap between high-frequency quantitative arbitrage trading and retail investors, offering institutional-grade security, transparency, and liquidity monitoring.
-        </p>
-        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-          We strongly believe that anonymity is one of the biggest red flags in digital finance. Therefore, we are proud to be fully registered, fully audited, and operated by a team of known, high-profile cryptography and financial professionals.
-        </p>
-      </section>
+      <div className="not-prose space-y-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-5 space-y-6">
+              <span className="inline-block px-3 py-1 bg-[#C9A96E]/10 text-[#C9A96E] text-xs font-bold rounded-full uppercase tracking-widest border border-[#C9A96E]/20">
+                UK Business Registry & Identity
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold font-display uppercase tracking-tight text-slate-950 dark:text-white">
+                WHO IS <span className="text-[#C9A96E]">GOLDENCOIN</span>?
+              </h2>
+              <p className="text-slate-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
+                Founded in July 2022, <strong>Goldencoin Limited</strong> is a fully transparent, registered digital assets and Bitcoin brokerage firm operating out of London, United Kingdom.
+              </p>
+              <p className="text-slate-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
+                Unlike anonymous investment platforms that constitute the industry's biggest red flags, Goldencoin is legally registered, wholly owned by <strong>Sterling Digital Holdings Ltd</strong>, and led by a team of verified cryptography and financial experts. We manage liquidity nodes with strict compliance standards.
+              </p>
+              <div className="pt-4 flex flex-wrap gap-4 text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-gray-500">
+                <span className="px-3 py-1 bg-slate-200/50 dark:bg-slate-900 border border-slate-300/50 dark:border-white/5 rounded-md text-slate-700 dark:text-gray-300">Established: July 2022</span>
+                <span className="px-3 py-1 bg-slate-200/50 dark:bg-slate-900 border border-slate-300/50 dark:border-white/5 rounded-md text-slate-700 dark:text-gray-300">Audited Audit Cycles: Monthly</span>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="bg-white dark:bg-slate-950 border border-[#C9A96E]/20 rounded-3xl p-6 md:p-8 space-y-6 shadow-2xl transition-colors duration-300">
+                <div className="flex items-center justify-between border-b border-[#C9A96E]/10 pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span className="font-mono text-xs text-[#C9A96E] font-bold uppercase tracking-widest">Companies House Verified</span>
+                  </div>
+                  <span className="text-xs text-slate-400 dark:text-gray-500 font-mono">ID: GC-14285934-LTD</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Registered Corporate Name</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white">Goldencoin Limited</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">UK Registration Number</p>
+                    <p className="text-sm font-bold text-[#C9A96E] font-mono">Company No. 14285934</p>
+                  </div>
+                  <div className="space-y-1 md:col-span-2">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Official Office Address</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white">22 Bishopsgate, London EC2N 4BQ, United Kingdom</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Professional Contact Email</p>
+                    <a href="mailto:support@goldencoin.live" className="text-sm font-bold text-[#C9A96E] hover:underline block">support@goldencoin.live</a>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase font-black tracking-widest">Official Support Line</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white font-mono">+44 20 7946 0192</p>
+                  </div>
+                </div>
+
+                <div className="bg-[#C9A96E]/5 rounded-2xl border border-[#C9A96E]/10 p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div>
+                    <h4 className="text-xs font-black text-[#C9A96E] uppercase tracking-wider">Need Instant Customer Support?</h4>
+                    <p className="text-[11px] text-slate-600 dark:text-gray-400 mt-0.5">Contact us via live chat or raise a secure support ticket inside your portal.</p>
+                  </div>
+                  <div className="flex gap-2 w-full md:w-auto shrink-0">
+                    <button 
+                      onClick={() => {
+                        const event = new CustomEvent('open-support', { detail: 'Hello, I would like to get support' });
+                        window.dispatchEvent(event);
+                      }} 
+                      className="px-4 py-2 bg-[#C9A96E] hover:bg-[#D4B985] text-slate-950 font-bold text-xs rounded-xl transition-all uppercase tracking-wider text-center flex-1 md:flex-initial"
+                    >
+                      Live Chat
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-6 space-y-6">
+              <span className="inline-block px-3 py-1 bg-[#C9A96E]/10 text-[#C9A96E] text-xs font-bold rounded-full uppercase tracking-widest border border-[#C9A96E]/20">
+                Institutional-Grade Performance
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold font-display uppercase tracking-tight text-slate-950 dark:text-white">
+                PRECISION ALGORITHMIC <span className="text-[#C9A96E]">ARBITRAGE</span>
+              </h2>
+              <p className="text-slate-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
+                Goldencoin utilizes advanced proprietary routing algorithms to capture micro-spreads across global digital asset exchanges. By executing thousands of high-frequency trades per minute, our systems identify and capitalize on pricing inefficiencies with zero emotional bias.
+              </p>
+              <p className="text-slate-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
+                Our infrastructure is built on ultra-low latency fiber networks, directly connected to tier-1 exchange order books. This ensures that retail investors receive institutional-grade execution speed, transparent yield generation, and robust risk management.
+              </p>
+              <div className="pt-4 flex flex-wrap gap-4 text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-gray-500">
+                <span className="px-3 py-1 bg-slate-200/50 dark:bg-slate-900 border border-slate-300/50 dark:border-white/5 rounded-md text-slate-700 dark:text-gray-300">Latency: &lt; 2ms</span>
+                <span className="px-3 py-1 bg-slate-200/50 dark:bg-slate-900 border border-slate-300/50 dark:border-white/5 rounded-md text-slate-700 dark:text-gray-300">Uptime: 99.99%</span>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6">
+              <div className="bg-white dark:bg-slate-950 border border-[#C9A96E]/20 rounded-3xl p-6 md:p-8 space-y-8 shadow-2xl transition-colors duration-300">
+                <div className="flex items-center justify-between border-b border-[#C9A96E]/10 pb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#C9A96E] animate-pulse"></div>
+                    <span className="font-mono text-xs text-slate-500 dark:text-gray-400 font-bold uppercase tracking-widest">Live Node Status</span>
+                  </div>
+                  <span className="text-xs text-[#C9A96E] font-bold font-mono">ACTIVE / ROUTING</span>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-gray-300">
+                      <span>Execution Speed</span>
+                      <span className="text-[#C9A96E]">98% Efficiency</span>
+                    </div>
+                    <div className="h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                      <div className="h-full bg-[#C9A96E] w-[98%] rounded-full relative">
+                         <div className="absolute top-0 right-0 bottom-0 w-10 bg-white/20 blur-sm animate-pulse"></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-gray-300">
+                      <span>Network Liquidity Capacity</span>
+                      <span className="text-[#C9A96E]">&gt; $2B Daily</span>
+                    </div>
+                    <div className="h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                      <div className="h-full bg-[#C9A96E] w-[85%] rounded-full relative">
+                         <div className="absolute top-0 right-0 bottom-0 w-10 bg-white/20 blur-sm animate-pulse"></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-gray-300">
+                      <span>Algorithmic Predictability</span>
+                      <span className="text-[#C9A96E]">Consistent</span>
+                    </div>
+                    <div className="h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                      <div className="h-full bg-[#C9A96E] w-[92%] rounded-full relative">
+                         <div className="absolute top-0 right-0 bottom-0 w-10 bg-white/20 blur-sm animate-pulse"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
 
       {/* Mission & Vision */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">

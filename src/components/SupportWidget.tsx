@@ -192,7 +192,7 @@ export const SupportWidget: React.FC<{
 
       setMessage("");
 
-      // AI Auto-Response Logic
+      // Auto-Response Logic
       if (!isAdminMode) {
         const lastUserMessage = message;
         setIsAITyping(true);
@@ -207,8 +207,8 @@ export const SupportWidget: React.FC<{
 
             await addDoc(collection(db, "support_chats"), {
               userId: effectiveUserId,
-              userName: "AI Concierge",
-              userEmail: "ai@goldencoin.com",
+              userName: "Support Concierge",
+              userEmail: "support-concierge@goldencoin.live",
               text: aiReply,
               sender: "admin", // Mark as admin so it shows on the left
               isAI: true,
@@ -216,8 +216,8 @@ export const SupportWidget: React.FC<{
               createdAt: serverTimestamp(),
             });
           } catch (err: any) {
-            console.error("AI Reply Error:", err);
-            // Optionally notify user that AI failed
+            console.error("Auto Reply Error:", err);
+            // Optionally notify user that auto-reply failed
           } finally {
             setIsAITyping(false);
           }
@@ -287,8 +287,8 @@ export const SupportWidget: React.FC<{
                     )}
                   >
                     <span className="text-[9px] text-gray-500 font-bold uppercase tracking-wider mb-1 px-2 flex items-center gap-1">
-                       {msg.sender === 'admin' ? (msg.isAI ? "AI Concierge" : "Support Team") : (msg.userName || "Guest")}
-                       {msg.isAI && <span className="bg-[#C9A96E]/20 text-[#C9A96E] px-1 rounded">AI</span>}
+                       {msg.sender === 'admin' ? (msg.isAI ? "Support Concierge" : "Support Team") : (msg.userName || "Guest")}
+                       {msg.isAI && <span className="bg-[#C9A96E]/20 text-[#C9A96E] px-1 rounded">BOT</span>}
                     </span>
                     <div className={cn(
                       "p-3 rounded-2xl text-sm",
@@ -304,7 +304,7 @@ export const SupportWidget: React.FC<{
                 {(isAITyping || adminTyping) && (
                   <div className="flex flex-col max-w-[80%] self-start">
                     <span className="text-[9px] text-gray-500 font-bold uppercase tracking-wider mb-1 px-2">
-                       {adminTyping ? "Support Team" : "AI Concierge"}
+                       {adminTyping ? "Support Team" : "Support Concierge"}
                     </span>
                     <div className="bg-slate-800 text-white p-4 rounded-2xl rounded-tl-none border border-white/5 w-16 h-10 flex items-center justify-center gap-1">
                       <motion.div className="w-1.5 h-1.5 bg-gray-400 rounded-full" animate={{ y: [0, -3, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0 }} />

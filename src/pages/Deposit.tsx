@@ -106,7 +106,7 @@ export const Deposit = () => {
            method: 'POST',
            headers: {
              'Content-Type': 'application/json',
-             'Authorization': `Bearer ${localStorage.getItem('token')}`
+             'Authorization': `Bearer ${await user?.getIdToken()}`
            },
            body: JSON.stringify({ btcAddress: walletAddress })
         });

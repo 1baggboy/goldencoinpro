@@ -208,7 +208,7 @@ export const Invest = () => {
             <Sparkles size={20} className="group-hover:rotate-12 transition-transform" />
           </div>
           <div>
-            <p className="text-xs font-black text-[#C9A96E] uppercase tracking-widest">AI Investment Scout</p>
+            <p className="text-xs font-black text-[#C9A96E] uppercase tracking-widest">Quantitative Scout</p>
             <p className="text-sm text-gray-300">The Professional Plan currently has the highest risk-adjusted yield. Compounding returns over 6-hour cycles can boost annual gains by 40%.</p>
           </div>
         </div>
@@ -220,7 +220,7 @@ export const Invest = () => {
           className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-all border border-white/5"
         >
           <HelpCircle size={16} />
-          <span className="text-xs font-bold uppercase tracking-tight">Get AI Strategy</span>
+          <span className="text-xs font-bold uppercase tracking-tight">Get Strategy</span>
         </button>
       </motion.div>
 

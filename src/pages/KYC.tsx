@@ -255,7 +255,7 @@ export const KYC = () => {
             <Sparkles size={20} className="group-hover:rotate-12 transition-transform" />
           </div>
           <div>
-            <p className="text-xs font-black text-[#C9A96E] uppercase tracking-widest">AI Verification Scout</p>
+            <p className="text-xs font-black text-[#C9A96E] uppercase tracking-widest">Automated Verification Scout</p>
             <p className="text-sm text-gray-300">Ensure high lighting for the selfie. Blurry documents are the #1 cause for delay. Verification takes ~1 hour.</p>
           </div>
         </div>
